@@ -7,8 +7,9 @@ get_header();
 ?>
 
 <div class="login-container">
-    <div class="login-form-wrapper">
-        <h1>Login</h1>
+    <div class="login-box">
+        <h1 class="logo">MIUZY</h1>
+        <p class="tagline">Bienvenu sur la plateforme de miuzy, la où les<br>événements locaux prennent vie !</p>
 
         <?php
         if (isset($_GET['login']) && $_GET['login'] == 'failed') {
@@ -22,30 +23,26 @@ get_header();
         } else {
         ?>
 
-            <form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" class="login-form">
+            <form id="loginForm" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" class="login-form">
                 <?php wp_nonce_field('login_action', 'login_nonce'); ?>
 
-                <div class="form-group">
-                    <label for="user_login">Username or Email</label>
-                    <input type="text" name="log" id="user_login" required>
+                    <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-
+                
                 <div class="form-group">
-                    <label for="user_pass">Password</label>
-                    <input type="password" name="pwd" id="user_pass" required>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required>
+                    <a href="forgot-password.php" class="forgot-link">Mot de passe oublié ?</a>
                 </div>
-
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="rememberme" value="forever"> Remember me
-                    </label>
-                </div>
-
-                <button type="submit" name="login_submit" class="submit-btn">Login</button>
+                
+                <button type="submit" name="login_submit" class="btn-submit">Se connecter</button>
             </form>
 
-            <p class="register-link">Don't have an account? <a href="<?php echo esc_url(home_url('/signup')); ?>">Sign up</a></p>
-
+            <p class="signup-text">
+                Vous n'avez pas de compte ? <a href="register.php">Inscrivez-vous.</a>
+            </p>
         <?php } ?>
     </div>
 </div>

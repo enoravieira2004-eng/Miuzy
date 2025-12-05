@@ -76,17 +76,18 @@ add_action('template_redirect', 'handle_user_registration');
 function handle_user_login()
 {
     if (isset($_POST['login_submit']) && isset($_POST['login_nonce']) && wp_verify_nonce($_POST['login_nonce'], 'login_action')) {
-        $username = sanitize_user($_POST['log']);
-        $password = $_POST['pwd'];
+        $email = sanitize_email($_POST['email']);
+        error_log("Login attempt for user: " . $email);
+        $password = $_POST['password'];
         $remember = isset($_POST['rememberme']) ? true : false;
 
-        if (empty($username) || empty($password)) {
+        if (empty($email) || empty($password)) {
             wp_redirect(home_url('/login?login=empty'));
             exit;
         }
 
         $creds = array(
-            'user_login'    => $username,
+            'user_login'    => $email,
             'user_password' => $password,
             'remember'      => $remember
         );
