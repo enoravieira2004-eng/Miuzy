@@ -98,22 +98,22 @@ body {
 
 .btn-submit {
     width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #6B5B95 0%, #8B7AB8 100%);
-    color: white;
-    border: none;
-    border-radius: 25px;
+    padding: 14px 20px;
+    background: transparent;
+    border: 2px solid #a73ed0; /* Bord mauve */
+    border-radius: 30px;
     font-size: 16px;
     font-weight: 600;
+    color: #a73ed0; /* Texte mauve */
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 20px;
-    box-shadow: 0 4px 15px rgba(107, 91, 149, 0.3);
+    box-shadow: 0 4px 12px rgba(167, 62, 208, 0.25); /* Ombre mauve */
 }
 
 .btn-submit:hover {
+    background: rgba(167, 62, 208, 0.08); /* léger mauve */
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(107, 91, 149, 0.4);
 }
 
 .btn-submit:active {
