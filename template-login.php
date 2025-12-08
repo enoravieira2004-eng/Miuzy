@@ -7,8 +7,9 @@ get_header();
 ?>
 
 <div class="login-container">
-    <div class="login-form-wrapper">
-        <h1>Login</h1>
+    <div class="login-box">
+        <h1 class="logo">MIUZY</h1>
+        <p class="tagline">Bienvenu sur la plateforme de miuzy, la où les<br>événements locaux prennent vie !</p>
 
         <?php
         if (isset($_GET['login']) && $_GET['login'] == 'failed') {
@@ -22,7 +23,7 @@ get_header();
         } else {
         ?>
 
-            <form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" class="login-form">
+            <form id="loginForm" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
                 <?php wp_nonce_field('login_action', 'login_nonce'); ?>
 
                 <div class="form-group">
