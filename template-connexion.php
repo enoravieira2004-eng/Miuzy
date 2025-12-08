@@ -1,5 +1,5 @@
 <?php
-/* Template Name: Connexion */
+/* Template Name: CONNEXION */
 get_header();
 ?>
 <div class="container">
