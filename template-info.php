@@ -3,10 +3,11 @@
 /**
  * Template Name: Info
  */
+
 get_header();
 ?>
 
-<main class="event-container">
+<main class="event-container"> 
     <div class="event-content">
         <div class="event-row">
             <!-- Image Section -->

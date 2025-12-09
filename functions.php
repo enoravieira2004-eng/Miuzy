@@ -22,10 +22,20 @@ function theme_scripts()
 
     // Ton CSS
     wp_enqueue_style('theme-style', get_template_directory_uri() . '/assets/css/main.css');
-
-
-
     
+    // Header CSS
+    wp_enqueue_style('header-style', get_template_directory_uri() . '/assets/css/header.css');
+
+    // Footer CSS
+    wp_enqueue_style('footer-style', get_template_directory_uri() . '/assets/css/footer.css');
+
+    // INFO CSS
+    wp_enqueue_style('info-style', get_template_directory_uri() . '/assets/css/info.css');
+
+
+
+
+
     // Bootstrap JS
     wp_enqueue_script(
         'bootstrap-js',
