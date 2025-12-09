@@ -1,0 +1,51 @@
+.miuzy-header {
+    background-color: #8f3fc9;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.miuzy-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.logo img {
+    height: 55px;
+}
+
+.menu {
+    display: flex;
+    gap: 30px;
+}
+
+.menu-btn {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.menu-btn:hover {
+    color: #ffb800;
+}
+
+.menu-btn::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background-color: #ffb800;
+    transition: width 0.3s ease;
+}
+
+.menu-btn:hover::after {
+    width: 100%;
+}
