@@ -1,0 +1,35 @@
+
+@font-face {
+    font-family: "PP Telegraf";
+    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-Regular.otf") format("opentype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "PP Telegraf";
+    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-UltraBold.otf") format("opentype");
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: "PP Telegraf";
+    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-UltraLight.otf") format("opentype");
+    font-weight: 200;
+}
+body {
+    font-family: "PP Telegraf", sans-serif;
+}
+.title {
+    font-family: "PP Telegraf";
+    font-weight: 800; /* UltraBold */
+}
+
+.text {
+    font-family: "PP Telegraf";
+    font-weight: 400; /* Regular */
+}
+
+.light {
+    font-family: "PP Telegraf";
+    font-weight: 200; /* UltraLight */
+}
