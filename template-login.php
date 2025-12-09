@@ -1,52 +1,79 @@
 <?php
-
-/**
- * Template Name: Login Template
+/* 
+ * Template Name: Connexion Miuzy
  */
+
+if ( is_user_logged_in() ) {
+    wp_redirect( home_url() );
+    exit;
+}
+
+$login_error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $email    = sanitize_text_field($_POST['email']);
+    $password = $_POST['password'];
+
+    $user = wp_signon([
+        'user_login'    => $email,
+        'user_password' => $password,
+        'remember'      => true
+    ]);
+
+    if (is_wp_error($user)) {
+        $login_error = "E-mail ou mot de passe incorrect.";
+    } else {
+        wp_redirect(home_url());
+        exit;
+    }
+}
+
 get_header();
 ?>
 
-<div class="login-container">
-    <div class="login-box">
-        <h1 class="logo">MIUZY</h1>
-        <p class="tagline">Bienvenu sur la plateforme de miuzy, la où les<br>événements locaux prennent vie !</p>
+<div class="miuzy-login-wrapper">
 
-        <?php
-        if (isset($_GET['login']) && $_GET['login'] == 'failed') {
-            echo '<div class="error-message">Invalid username or password.</div>';
-        }
-        if (isset($_GET['login']) && $_GET['login'] == 'empty') {
-            echo '<div class="error-message">Please fill in all fields.</div>';
-        }
-        if (is_user_logged_in()) {
-            echo '<div class="success-message">You are already logged in. <a href="' . wp_logout_url(home_url()) . '">Logout</a></div>';
-        } else {
-        ?>
+    <div class="miuzy-login-box">
 
-            <form id="loginForm" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" class="login-form">
-                <?php wp_nonce_field('login_action', 'login_nonce'); ?>
+    <img class="miuzy-logo"
+     src="<?php echo get_template_directory_uri(); ?>/assets/image/logo_miuzy.svg"
+     alt="Miuzy">
 
-                    <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required>
-                    <a href="forgot-password.php" class="forgot-link">Mot de passe oublié ?</a>
-                </div>
-                
-                <button type="submit" name="login_submit" class="btn-submit">Se connecter</button>
-            </form>
+        <p class="miuzy-intro">
+            Bienvenu sur la plateforme de miuzy, là où les<br>
+            événements locaux prennent vie !
+        </p>
 
-            <p class="signup-text">
-                Vous n'avez pas de compte ? <a href="register.php">Inscrivez-vous.</a>
+        <?php if ($login_error): ?>
+            <div class="miuzy-error"><?php echo $login_error; ?></div>
+        <?php endif; ?>
+
+        <form method="post" class="miuzy-form">
+
+            <label>
+                E-mail
+                <input type="email" name="email" required>
+            </label>
+
+            <label>
+                Mot de passe
+                <input type="password" name="password" required>
+            </label>
+
+            <a href="<?php echo wp_lostpassword_url(); ?>" class="miuzy-lost">Mot de passe oublié ?</a>
+
+            <button type="submit" class="miuzy-btn">Se connecter</button>
+
+            <p class="miuzy-register">
+                Vous n’avez pas de compte ?
+                <a href="<?php echo site_url('/inscription'); ?>">Inscrivez-vous.</a>
             </p>
-        <?php } ?>
+
+        </form>
+
     </div>
+
 </div>
 
-<?php
-get_footer();
-?>
+<?php get_footer(); ?>
