@@ -1,17 +1,18 @@
 <?php
 
 /**
- * Template Name: Info Template
+ * Template Name: Info
  */
+
 get_header();
 ?>
 
-<main class="event-container">
+<main class="event-container"> 
     <div class="event-content">
         <div class="event-row">
             <!-- Image Section -->
             <div class="image-section">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/shamrock-howlers.jpg" alt="The Shamrock Howlers" class="event-image">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/The shamrock howlers.jpg" alt="The Shamrock Howlers" class="event-image">
                 
                 <!-- Dropdown Menu -->
                 <div class="dropdown-menu-custom">

@@ -1,0 +1,48 @@
+.miuzy-footer {
+    background-color: #8f3fc9;
+    padding: 40px 0;
+}
+
+.miuzy-footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.footer-logo {
+    height: 60px;
+}
+
+.footer-center {
+    text-align: center;
+}
+
+.footer-title {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: underline;
+    margin-bottom: 15px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icons img {
+    width: 28px;
+    height: 28px;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-text {
+    font-size: 14px;
+}

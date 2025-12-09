@@ -1,151 +1,35 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+@font-face {
+    font-family: "PP Telegraf";
+    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-Regular.otf") format("opentype");
+    font-weight: 400;
 }
 
+@font-face {
+    font-family: "PP Telegraf";
+    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-UltraBold.otf") format("opentype");
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: "PP Telegraf";
+    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-UltraLight.otf") format("opentype");
+    font-weight: 200;
+}
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.6;
+    font-family: "PP Telegraf", sans-serif;
+}
+.title {
+    font-family: "PP Telegraf";
+    font-weight: 800; /* UltraBold */
 }
 
-/* MON CSS */
-body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #e8d5ff 0%, #d5e8ff 25%, #ffe8f5 50%, #fff5e8 75%, #e8f5ff 100%);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+.text {
+    font-family: "PP Telegraf";
+    font-weight: 400; /* Regular */
 }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.container {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;
-}
-
-.login-box {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 30px;
-    padding: 60px 50px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.logo {
-    font-size: 48px;
-    font-weight: bold;
-    color: #9b87c4;
-    margin-bottom: 20px;
-    letter-spacing: 8px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.tagline {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 40px;
-    line-height: 1.6;
-}
-
-.form-group {
-    margin-bottom: 25px;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 15px 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 25px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    background: white;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #9b87c4;
-    box-shadow: 0 0 0 3px rgba(155, 135, 196, 0.1);
-}
-
-.forgot-link {
-    display: block;
-    text-align: right;
-    font-size: 12px;
-    color: #666;
-    text-decoration: none;
-    margin-top: 8px;
-    transition: color 0.3s ease;
-}
-
-.forgot-link:hover {
-    color: #9b87c4;
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 14px 20px;
-    background: transparent;
-    border: 2px solid #a73ed0; /* Bord mauve */
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #a73ed0; /* Texte mauve */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
-    box-shadow: 0 4px 12px rgba(167, 62, 208, 0.25); /* Ombre mauve */
-}
-
-.btn-submit:hover {
-    background: rgba(167, 62, 208, 0.08); /* léger mauve */
-    transform: translateY(-2px);
-}
-
-.btn-submit:active {
-    transform: translateY(0);
-}
-
-.signup-text {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #666;
-}
-
-.signup-text a {
-    color: #6B5B95;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.signup-text a:hover {
-    color: #8B7AB8;
-    text-decoration: underline;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    .login-box {
-        padding: 40px 30px;
-    }
-    
-    .logo {
-        font-size: 36px;
-        letter-spacing: 6px;
-    }
+.light {
+    font-family: "PP Telegraf";
+    font-weight: 200; /* UltraLight */
 }
