@@ -1,79 +1,122 @@
 <?php
-
-/**
- * Template Name: Register Template
+/*
+ * Template Name: Page d’inscription Miuzy
  */
+
+if (is_user_logged_in()) {
+    wp_redirect(home_url());
+    exit;
+}
+
+$register_error = "";
+$register_success = false;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $prenom = sanitize_text_field($_POST["prenom"]);
+    $nom = sanitize_text_field($_POST["nom"]);
+    $date = sanitize_text_field($_POST["naissance"]);
+    $genre = sanitize_text_field($_POST["genre"]);
+    $email = sanitize_email($_POST["email"]);
+    $password = $_POST["password"];
+
+    if (email_exists($email)) {
+        $register_error = "Cet e-mail est déjà utilisé.";
+    } else {
+        $user_id = wp_create_user($email, $password, $email);
+
+        if (!is_wp_error($user_id)) {
+            update_user_meta($user_id, "first_name", $prenom);
+            update_user_meta($user_id, "last_name", $nom);
+            update_user_meta($user_id, "naissance", $date);
+            update_user_meta($user_id, "genre", $genre);
+
+            $register_success = true;
+        } else {
+            $register_error = "Une erreur est survenue, réessayez.";
+        }
+    }
+}
+
 get_header();
 ?>
 
-<div class="register-container">
-    <div class="register-form-wrapper">
-        <h1>Sign Up</h1>
+<div class="miuzy-login-wrapper">
 
-        <?php
-        if (isset($_GET['registration']) && $_GET['registration'] == 'success') {
-            echo '<div class="success-message">Registration successful! You can now login.</div>';
-        }
-        if (isset($_GET['registration']) && $_GET['registration'] == 'error') {
-            echo '<div class="error-message">Registration failed. Please try again.</div>';
-        }
-        if (is_user_logged_in()) {
-            echo '<div class="success-message">You are already logged in. <a href="' . wp_logout_url(home_url()) . '">Logout</a></div>';
-        } else {
-        ?>
+<div class="miuzy-login-box">
 
-            <form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" class="register-form">
-                <?php wp_nonce_field('register_action', 'register_nonce'); ?>
+    <img class="miuzy-logo"
+    src="<?php echo get_template_directory_uri(); ?>/assets/image/logo_miuzy.svg"
+    alt="Miuzy">
 
-                <div class="form-group">
-                    <label for="user_login">Username</label>
-                    <input type="text" name="user_login" id="user_login" required>
-                </div>
+    <?php if ($register_success): ?>
+        <p class="miuzy-success">Compte créé ! Vous pouvez maintenant vous connecter.</p>
+        <a href="<?php echo site_url('/connexion'); ?>" class="miuzy-btn" style="margin-top:20px;">Se connecter</a>
 
-                <div class="form-group">
-                    <label for="user_email">Email</label>
-                    <input type="email" name="user_email" id="user_email" required>
-                </div>
+    <?php else: ?>
 
-                <div class="form-group">
-                    <label for="first_name">First Name</label>
-                    <input type="text" name="first_name" id="first_name" required>
-                </div>
+        <form method="POST" id="miuzy-register-form" class="miuzy-form">
 
-                <div class="form-group">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" name="last_name" id="last_name" required>
-                </div>
+            <?php if ($register_error): ?>
+                <div class="miuzy-error"><?= $register_error; ?></div>
+            <?php endif; ?>
 
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" name="phone" id="phone">
-                </div>
+            <label>Prénom
+                <input type="text" name="prenom" required>
+            </label>
 
-                <div class="form-group">
-                    <label for="student_id">Student ID</label>
-                    <input type="text" name="student_id" id="student_id">
-                </div>
+            <label>Nom
+                <input type="text" name="nom" required>
+            </label>
 
-                <div class="form-group">
-                    <label for="user_pass">Password</label>
-                    <input type="password" name="user_pass" id="user_pass" required>
-                </div>
+            <label>Date de naissance
+                <input type="date" name="naissance" required>
+            </label>
 
-                <div class="form-group">
-                    <label for="user_pass_confirm">Confirm Password</label>
-                    <input type="password" name="user_pass_confirm" id="user_pass_confirm" required>
-                </div>
+            <label>Genre
+                <select name="genre" required>
+                    <option value="">Choisir</option>
+                    <option value="femme">Femme</option>
+                    <option value="homme">Homme</option>
+                    <option value="autre">Autre</option>
+                </select>
+            </label>
 
-                <button type="submit" name="register_submit" class="submit-btn">Sign Up</button>
-            </form>
+            <label>E-mail
+                <input type="email" name="email" required>
+            </label>
 
-            <p class="login-link">Already have an account? <a href="<?php echo esc_url(home_url('/login')); ?>">Login</a></p>
+            <label>Mot de passe
+                <input type="password" name="password" required>
+            </label>
 
-        <?php } ?>
-    </div>
+            <button type="submit" class="miuzy-btn">S’inscrire</button>
+
+            <p class="miuzy-register">
+                Vous avez un compte ?
+                <a href="<?php echo site_url('/connexion'); ?>">Connectez-vous.</a>
+            </p>
+        </form>
+
+    <?php endif; ?>
+
 </div>
+</div>
+<script>
+jQuery(document).ready(function($){
+    $('#miuzy-register-form').on('submit', function(){
+        let ok = true;
+        $(this).find('input,select').each(function(){
+            if(!$(this).val().trim()){
+                $(this).css('border-color','red');
+                ok = false;
+            } else {
+                $(this).css('border-color','#ccc');
+            }
+        });
+        return ok;
+    });
+});
+</script>
 
-<?php
-get_footer();
-?>
+<?php get_footer(); ?>
