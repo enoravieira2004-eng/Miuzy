@@ -23,6 +23,9 @@ function theme_scripts()
     // Ton CSS
     wp_enqueue_style('theme-style', get_template_directory_uri() . '/assets/css/main.css');
 
+
+
+    
     // Bootstrap JS
     wp_enqueue_script(
         'bootstrap-js',
