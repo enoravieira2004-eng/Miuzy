@@ -13,10 +13,10 @@
             <p class="footer-title">SUIVEZ NOUS SUR NOS RÉSEAUX SOCIAUX</p>
             <div class="social-icons">
                 <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/tiktok.svg" alt="TikTok"></a>
-                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/linkedin.svg" alt="LinkedIn"></a>
+                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin.svg" alt="LinkedIn"></a>
                 <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/instagram.svg" alt="Instagram"></a>
-                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/youtube.svg" alt="YouTube"></a>
-                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/facebook.svg" alt="Facebook"></a>
+                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube.svg" alt="YouTube"></a>
+                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/facebook.svg" alt="Facebook"></a>
             </div>
         </div>
 
