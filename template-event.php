@@ -9,7 +9,7 @@ get_header();
 <div class="event-page">
 
     <!-- HERO -->
-    <section class="event-hero" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/images/event-hero.jpg');">
+    <section class="event-hero" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/assets/images/pexels-thibault-trillet-44912-167636.jpg');">
         <div class="event-hero-overlay"></div>
         <div class="event-hero-content container">
             <h1>LÀ OÙ LES<br><span>ÉVÈNEMENTS LOCAUX</span><br>PRENNENT <strong>VIE !</strong></h1>
