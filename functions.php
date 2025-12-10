@@ -35,8 +35,8 @@ function theme_scripts()
     // USER PROFIL CSS
     wp_enqueue_style('userprofil-style', get_template_directory_uri() . '/assets/css/userprofil.css');
 
-    // USER PROFIL CSS
-    wp_enqueue_style('userprofil-style', get_template_directory_uri() . '/assets/css/userprofil.css');
+    // EVENT CSS
+    wp_enqueue_style('event-style', get_template_directory_uri() . '/assets/css/event.css');
 
    
 
