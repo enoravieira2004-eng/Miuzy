@@ -1,0 +1,59 @@
+.event-page { background:#f7f7f7; }
+.event-hero { height:320px; background-size:cover; position:relative; }
+.event-hero-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.5); }
+.event-hero-content { position:relative; color:white; padding:40px; }
+
+.event-section-title { font-weight:700; }
+
+.event-input {
+    border-radius:999px;
+    border:1px solid #ccc;
+    padding:10px 20px;
+}
+
+textarea.event-input {
+    border-radius:25px;
+}
+
+.event-counter .btn {
+    border-radius:999px;
+    width:36px; height:36px;
+}
+
+.event-rules-box {
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:25px;
+    max-height:150px;
+    overflow:hidden;
+}
+
+.event-rules-box.expanded {
+    max-height:none;
+}
+
+/* TOUS LES BOUTONS PASSENT EN #3D18D3 / WHITE AU HOVER */
+.btn:hover {
+    background:#3D18D3 !important;
+    color:white !important;
+    border-color:#3D18D3 !important;
+}
+
+/* TICKET */
+.event-ticket {
+    background:white;
+    padding:20px;
+    border-radius:25px;
+    display:flex;
+    gap:20px;
+}
+
+.event-ticket-image img {
+    width:220px; height:220px; object-fit:cover;
+    border-radius:20px;
+}
+
+.btn-ticket-more {
+    border:2px solid #3D18D3;
+    color:#3D18D3;
+}
