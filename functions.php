@@ -389,3 +389,8 @@ function event_enqueue_bootstrap() {
     wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array(), null, true);
 }
 add_action('wp_enqueue_scripts', 'event_enqueue_bootstrap');
+
+function miuzy_load_scripts() {
+    wp_enqueue_script('jquery');
+}
+add_action('wp_enqueue_scripts', 'miuzy_load_scripts');
