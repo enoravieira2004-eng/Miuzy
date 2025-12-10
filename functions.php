@@ -380,3 +380,9 @@ function register_client_message_post_type() {
         'menu_icon' => 'dashicons-email'
     ));
 }
+
+function event_enqueue_bootstrap() {
+    wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
+    wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array(), null, true);
+}
+add_action('wp_enqueue_scripts', 'event_enqueue_bootstrap');
