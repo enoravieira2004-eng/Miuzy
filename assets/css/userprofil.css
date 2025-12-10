@@ -1,0 +1,279 @@
+/* User Profile Styles */
+
+.user-profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.profile-content {
+    background: #fff;
+}
+
+/* Section Styles */
+.profile-section {
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #000;
+    letter-spacing: 0.5px;
+}
+
+.section-content {
+    padding-left: 20px;
+}
+
+.section-description {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Profile Header */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.profile-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.editable-field {
+    margin-bottom: 8px;
+}
+
+.display-name,
+.display-email {
+    display: block;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.display-name {
+    font-weight: 600;
+}
+
+.edit-name,
+.edit-email {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.btn-edit,
+.btn-save {
+    background: #fff;
+    color: #5835D4;
+    border: 2px solid #5835D4;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-edit:hover,
+.btn-save:hover {
+    background: #3D18D3;
+    color: #fff;
+    border-color: #3D18D3;
+}
+
+/* Form Styles */
+.password-form,
+.contact-form {
+    width: 100%;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    padding: 12px 16px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #fff;
+    color: #000;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #5835D4;
+}
+
+.form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23666' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 150px;
+    border-radius: 20px;
+    font-family: inherit;
+}
+
+/* Buttons */
+.btn-validate,
+.btn-send,
+.btn-event {
+    background: #fff;
+    color: #5835D4;
+    border: 2px solid #5835D4;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-validate:hover,
+.btn-send:hover,
+.btn-event:hover {
+    background: #3D18D3;
+    color: #fff;
+    border-color: #3D18D3;
+}
+
+.btn-validate {
+    width: 100%;
+    margin-top: 28px;
+}
+
+.btn-send {
+    margin-top: 15px;
+}
+
+.btn-logout {
+    background: #fff;
+    color: #FFB800;
+    border: 2px solid #FFB800;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-logout:hover {
+    background: #FFB800;
+    color: #fff;
+    border-color: #FFB800;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .btn-validate {
+        margin-top: 0;
+    }
+}
+
+/* Select dropdown styling */
+.form-select option {
+    padding: 10px;
+}
+
+/* Form validation states */
+.form-input.error,
+.form-textarea.error {
+    border-color: #ff4444;
+}
+
+.form-input.success,
+.form-textarea.success {
+    border-color: #00C851;
+}
+
+/* Loading state */
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-section {
+    animation: fadeIn 0.5s ease;
+}
