@@ -180,7 +180,7 @@ get_header();
                                 <label>Nombre de personnes</label>
                                 <div class="d-flex align-items-center event-counter">
                                     <button type="button" class="btn counter-btn" data-target="#nbp" data-step="-1">−</button>
-                                    <input id="nbp" type="number" name="nombre_personnes" class="form-control event-input text-center mx-2" value="0" min="0">
+                                    <input id="nbp" type="text" name="nombre_personnes" class="form-control event-input text-center mx-2" value="0">
                                     <button type="button" class="btn counter-btn" data-target="#nbp" data-step="1">+</button>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@ get_header();
                                 <label>Prix</label>
                                 <div class="d-flex align-items-center event-counter">
                                     <button type="button" class="btn counter-btn" data-target="#prix" data-step="-1">−</button>
-                                    <input id="prix" type="number" name="prix" class="form-control event-input text-center mx-2" value="0" min="0">
+                                    <input id="prix" type="text" name="prix" class="form-control event-input text-center mx-2" value="0">
                                     <button type="button" class="btn counter-btn" data-target="#prix" data-step="1">+</button>
                                 </div>
                             </div>
