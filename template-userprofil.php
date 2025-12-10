@@ -11,8 +11,6 @@ $current_user = wp_get_current_user();
 get_header();
 ?>
 
-<!-- Charger le CSS personnalisé -->
-<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?><assets>/userprofil.css">
 
 <div class="user-profile-container">
     <div class="profile-content">

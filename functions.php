@@ -32,6 +32,11 @@ function theme_scripts()
     // INFO CSS
     wp_enqueue_style('info-style', get_template_directory_uri() . '/assets/css/info.css');
 
+    // INFO CSS
+    wp_enqueue_style('userprofil-style', get_template_directory_uri() . '/assets/css/userprofil.css');
+
+   
+
 
 
 
@@ -215,3 +220,163 @@ function show_custom_user_column_data($value, $column_name, $user_id)
     return $value;
 }
 add_filter('manage_users_custom_column', 'show_custom_user_column_data', 10, 3);
+
+// ========================================
+// FONCTIONS AJAX POUR LE PROFIL UTILISATEUR
+// ========================================
+
+// Update user profile
+add_action('wp_ajax_update_user_profile', 'update_user_profile_ajax');
+function update_user_profile_ajax() {
+    check_ajax_referer('update_profile_nonce', 'nonce');
+    
+    if (!is_user_logged_in()) {
+        wp_send_json_error('Vous devez être connecté');
+    }
+    
+    $user_id = get_current_user_id();
+    $new_name = sanitize_text_field($_POST['name']);
+    $new_email = sanitize_email($_POST['email']);
+    
+    // Validate email
+    if (!is_email($new_email)) {
+        wp_send_json_error('Email invalide');
+    }
+    
+    // Check if email already exists
+    if (email_exists($new_email) && email_exists($new_email) != $user_id) {
+        wp_send_json_error('Cet email est déjà utilisé');
+    }
+    
+    // Update user
+    $user_data = array(
+        'ID' => $user_id,
+        'display_name' => $new_name,
+        'user_email' => $new_email
+    );
+    
+    $result = wp_update_user($user_data);
+    
+    if (is_wp_error($result)) {
+        wp_send_json_error($result->get_error_message());
+    }
+    
+    wp_send_json_success('Profil mis à jour');
+}
+
+// Update password
+add_action('wp_ajax_update_user_password', 'update_user_password_ajax');
+function update_user_password_ajax() {
+    check_ajax_referer('update_password_nonce', 'nonce');
+    
+    if (!is_user_logged_in()) {
+        wp_send_json_error('Vous devez être connecté');
+    }
+    
+    $user = wp_get_current_user();
+    $current_password = $_POST['current_password'];
+    $new_password = $_POST['new_password'];
+    
+    // Verify current password
+    if (!wp_check_password($current_password, $user->user_pass, $user->ID)) {
+        wp_send_json_error('Mot de passe actuel incorrect');
+    }
+    
+    // Validate new password strength
+    if (strlen($new_password) < 8) {
+        wp_send_json_error('Le mot de passe doit contenir au moins 8 caractères');
+    }
+    
+    // Update password
+    wp_set_password($new_password, $user->ID);
+    
+    wp_send_json_success('Mot de passe modifié');
+}
+
+// Update preferences (language and currency)
+add_action('wp_ajax_update_preferences', 'update_preferences_ajax');
+function update_preferences_ajax() {
+    check_ajax_referer('update_preferences_nonce', 'nonce');
+    
+    if (!is_user_logged_in()) {
+        wp_send_json_error('Vous devez être connecté');
+    }
+    
+    $user_id = get_current_user_id();
+    $language = sanitize_text_field($_POST['language']);
+    $currency = sanitize_text_field($_POST['currency']);
+    
+    // Save as user meta
+    if (!empty($language)) {
+        update_user_meta($user_id, 'user_language', $language);
+    }
+    
+    if (!empty($currency)) {
+        update_user_meta($user_id, 'user_currency', $currency);
+    }
+    
+    wp_send_json_success('Préférences mises à jour');
+}
+
+// Send client message
+add_action('wp_ajax_send_client_message', 'send_client_message_ajax');
+function send_client_message_ajax() {
+    check_ajax_referer('send_message_nonce', 'nonce');
+    
+    if (!is_user_logged_in()) {
+        wp_send_json_error('Vous devez être connecté');
+    }
+    
+    $user = wp_get_current_user();
+    $message = sanitize_textarea_field($_POST['message']);
+    
+    if (empty($message)) {
+        wp_send_json_error('Le message ne peut pas être vide');
+    }
+    
+    // Get admin email
+    $admin_email = get_option('admin_email');
+    
+    // Email subject
+    $subject = 'Nouveau message du service client - ' . $user->display_name;
+    
+    // Email body
+    $body = "Nouveau message de: " . $user->display_name . " (" . $user->user_email . ")\n\n";
+    $body .= "Message:\n" . $message . "\n\n";
+    $body .= "Date: " . date('d/m/Y H:i:s');
+    
+    // Send email
+    $sent = wp_mail($admin_email, $subject, $body);
+    
+    if ($sent) {
+        // Optionally save message in database
+        $post_id = wp_insert_post(array(
+            'post_type' => 'client_message',
+            'post_title' => 'Message de ' . $user->display_name,
+            'post_content' => $message,
+            'post_status' => 'private',
+            'post_author' => $user->ID
+        ));
+        
+        wp_send_json_success('Message envoyé');
+    } else {
+        wp_send_json_error('Erreur lors de l\'envoi du message');
+    }
+}
+
+// Register custom post type for client messages (optional)
+add_action('init', 'register_client_message_post_type');
+function register_client_message_post_type() {
+    register_post_type('client_message', array(
+        'labels' => array(
+            'name' => 'Messages Clients',
+            'singular_name' => 'Message Client'
+        ),
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'capability_type' => 'post',
+        'supports' => array('title', 'editor', 'author'),
+        'menu_icon' => 'dashicons-email'
+    ));
+}
