@@ -32,7 +32,10 @@ function theme_scripts()
     // INFO CSS
     wp_enqueue_style('info-style', get_template_directory_uri() . '/assets/css/info.css');
 
-    // INFO CSS
+    // USER PROFIL CSS
+    wp_enqueue_style('userprofil-style', get_template_directory_uri() . '/assets/css/userprofil.css');
+
+    // USER PROFIL CSS
     wp_enqueue_style('userprofil-style', get_template_directory_uri() . '/assets/css/userprofil.css');
 
    
