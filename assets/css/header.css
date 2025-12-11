@@ -32,15 +32,35 @@
 }
 
 .menu-desktop a {
+    position: relative;
     font-weight: 600;
     text-decoration: none;
     color: #000;
     font-size: 16px;
+    transition: color 0.3s ease;
 }
 
+/* Couleur au hover */
 .menu-desktop a:hover {
     color: #ffb800;
 }
+
+/* Underline animé */
+.menu-desktop a::after {
+    content: "";
+    width: 0;
+    height: 2px;
+    background: #ffb800;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.menu-desktop a:hover::after {
+    width: 100%;
+}
+
 
 /* ===========================
    HAMBURGER BOUTON
@@ -62,6 +82,10 @@
     background: #000;
     border-radius: 3px;
     transition: 0.3s;
+}
+.burger:hover span {
+    background: #ffb800;
+    transform: scaleX(1.1);
 }
 
 /* ANIMATION */

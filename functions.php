@@ -228,25 +228,94 @@ function miuzy_login_url() {
     return home_url('/login/');
 }
 
-// 1️⃣ Remplacer toutes les URLs générées par WordPress
+/*
 add_filter('login_url', function() {
     return miuzy_login_url();
 });
 
-// 2️⃣ Rediriger SEULEMENT wp-login.php → /login
 add_action('init', function() {
 
-    // Si on accède à wp-login.php
     if (strpos($_SERVER['REQUEST_URI'], 'wp-login.php') !== false) {
 
-        // Laisser WordPress gérer les actions internes (logout, reset…)
         if (isset($_GET['action']) && $_GET['action'] !== '') {
             return;
         }
 
-        // Redirection vers /login
         wp_redirect( miuzy_login_url() );
         exit;
     }
 
 });
+*/
+
+function miuzy_enqueue_user_profile_css() {
+
+    if (is_page_template('template-userprofil.php')) {
+
+        wp_enqueue_style(
+            'user-profile-css',
+            get_template_directory_uri() . '/assets/css/userprofil.css',
+            array(),
+            '1.0'
+        );
+    }
+}
+
+add_action('wp_enqueue_scripts', 'miuzy_enqueue_user_profile_css');
+/* ============================================================
+   REDIRECTION DE wp-login.php → /login
+   ============================================================ */
+
+   function miuzy_force_custom_login() {
+    $uri = $_SERVER['REQUEST_URI'];
+
+    // Si on accède à wp-login.php directement
+    if (strpos($uri, 'wp-login.php') !== false) {
+
+        // Laisser WordPress gérer logout, reset password, etc.
+        if (isset($_GET['action']) && $_GET['action'] !== 'login') {
+            return;
+        }
+
+        // Redirection vers /login
+        wp_redirect( home_url('/login/') );
+        exit;
+    }
+}
+add_action('init', 'miuzy_force_custom_login');
+
+
+/* ============================================================
+   REMPLACE TOUS LES LIENS DE CONNEXION WORDPRESS PAR /login
+   ============================================================ */
+
+function miuzy_replace_login_url($login_url, $redirect, $force_reauth) {
+    return home_url('/login/');
+}
+add_filter('login_url', 'miuzy_replace_login_url', 10, 3);
+
+
+/* ============================================================
+   REDIRIGER LES INVITÉS VERS /noacces
+   ============================================================ */
+
+function miuzy_redirect_guests_to_noaccess() {
+
+    // Si l'utilisateur est connecté → on ne fait rien
+    if ( is_user_logged_in() ) {
+        return;
+    }
+
+    // Pages protégées par leur SLUG
+    $protected_slugs = array( 'compte', 'panier', 'favoris', 'reservation' );
+
+    // Si on est sur une des pages protégées
+    if ( is_page( $protected_slugs ) ) {
+
+        // Redirection vers la page "noacces"
+        // ⚠️ ici le chemin DOIT correspondre exactement au SLUG de ta page
+        wp_redirect( home_url('/noacces/') );
+        exit;
+    }
+}
+add_action('template_redirect', 'miuzy_redirect_guests_to_noaccess', 1);

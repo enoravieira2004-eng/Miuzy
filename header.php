@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> >
+<html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,11 +14,8 @@
 
         <!-- LOGO -->
         <div class="logo">
-    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo_miuzy.svg" alt="Miuzy">
-</div>
-
-
-
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo_miuzy.svg" alt="Miuzy">
+        </div>
 
         <!-- MENU DESKTOP -->
         <nav class="menu-desktop">
@@ -26,10 +23,10 @@
             <a href="#">Réservation</a>
             <a href="#">Favoris</a>
             <a href="#">Panier</a>
-            <a href="#">Compte</a>
+            <a href="<?php echo home_url('/compte'); ?>">Compte</a>
         </nav>
 
-        <!-- BURGER BUTTON (MOBILE) -->
+        <!-- BURGER BUTTON -->
         <div class="burger" id="burgerBtn">
             <span></span>
             <span></span>
@@ -44,7 +41,7 @@
         <a href="#">Réservation</a>
         <a href="#">Favoris</a>
         <a href="#">Panier</a>
-        <a href="#">Compte</a>
+        <a href="<?php echo home_url('/compte'); ?>">Compte</a>
     </nav>
 
 </header>

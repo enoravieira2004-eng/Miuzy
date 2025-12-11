@@ -105,7 +105,7 @@
 
     /* HOOVER JAUNE */
     .social-icons img:hover {
-        filter: drop-shadow(0 0 3px #ffb800);
+        filter: dr(0 0 3px #ffb800);
         opacity: 0.8;
     }
     
@@ -117,3 +117,11 @@
     }
 }
 
+.social-icons img {
+    transition: 0.3s ease;
+}
+
+.social-icons img:hover {
+    transform: scale(1.15);
+    filter: brightness(0) saturate(100%) invert(78%) sepia(64%) saturate(1300%) hue-rotate(2deg) brightness(107%) contrast(103%);
+}
