@@ -90,6 +90,7 @@ get_header();
 .reserv-title {
     font-size: 28px;
     margin-bottom: 25px;
+    font-weight: bold;
 }
 
 /* ===================== */
