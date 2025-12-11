@@ -517,3 +517,25 @@ function miuzy_upload_custom_avatar() {
     wp_send_json_success(['url' => $upload['url']]);
 }
 add_action('wp_ajax_miuzy_upload_avatar', 'miuzy_upload_custom_avatar');
+
+
+//no acces functions //
+// Rediriger les utilisateurs non connectés vers la page "no access"
+function miuzy_redirect_guests_to_noaccess() {
+    // Si l'utilisateur est connecté → on ne fait rien
+    if ( is_user_logged_in() ) {
+        return;
+    }
+
+    // Slugs des pages protégées
+    $protected_pages = array( 'reservation', 'favoris', 'panier', 'compte' );
+
+    // Si on est sur une des pages protégées
+    if ( is_page( $protected_pages ) ) {
+
+        // Redirige vers la page "no access"
+        wp_redirect( home_url( '/noacces/' ) ); // remplace /noacces/ si ton slug est différent
+        exit;
+    }
+}
+add_action( 'template_redirect', 'miuzy_redirect_guests_to_noaccess' );
