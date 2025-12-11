@@ -11,7 +11,6 @@ function theme_setup()
 }
 add_action('after_setup_theme', 'theme_setup');
 
-// Enqueue styles and scripts
 function theme_scripts()
 {
     // Bootstrap CSS
@@ -32,10 +31,6 @@ function theme_scripts()
     // INFO CSS
     wp_enqueue_style('info-style', get_template_directory_uri() . '/assets/css/info.css');
 
-
-
-
-
     // Bootstrap JS
     wp_enqueue_script(
         'bootstrap-js',
@@ -47,6 +42,15 @@ function theme_scripts()
 
     // Ton JS
     wp_enqueue_script('theme-script', get_template_directory_uri() . '/assets/js/main.js', array(), null, true);
+
+    // 🔥 Script du menu hamburger
+    wp_enqueue_script(
+        'miuzy-header',
+        get_template_directory_uri() . '/assets/js/header.js',
+        array(),
+        null,
+        true
+    );
 }
 add_action('wp_enqueue_scripts', 'theme_scripts');
 
@@ -215,3 +219,34 @@ function show_custom_user_column_data($value, $column_name, $user_id)
     return $value;
 }
 add_filter('manage_users_custom_column', 'show_custom_user_column_data', 10, 3);
+
+/* ------------------------------------------------------ */
+/* Redirection vers la page de connexion personnalisée     */
+/* ------------------------------------------------------ */
+
+function miuzy_login_url() {
+    return home_url('/login/');
+}
+
+// 1️⃣ Remplacer toutes les URLs générées par WordPress
+add_filter('login_url', function() {
+    return miuzy_login_url();
+});
+
+// 2️⃣ Rediriger SEULEMENT wp-login.php → /login
+add_action('init', function() {
+
+    // Si on accède à wp-login.php
+    if (strpos($_SERVER['REQUEST_URI'], 'wp-login.php') !== false) {
+
+        // Laisser WordPress gérer les actions internes (logout, reset…)
+        if (isset($_GET['action']) && $_GET['action'] !== '') {
+            return;
+        }
+
+        // Redirection vers /login
+        wp_redirect( miuzy_login_url() );
+        exit;
+    }
+
+});

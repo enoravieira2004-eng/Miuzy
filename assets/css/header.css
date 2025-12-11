@@ -1,51 +1,123 @@
+/* ===========================
+   HEADER GLOBAL
+=========================== */
+
 .miuzy-header {
-    background-color: #8f3fc9;
-    height: 80px;
-    display: flex;
-    align-items: center;
+    background: #8f3fc9;
+    padding: 15px 40px;
+    width: 100%;
+    position: relative;
+    z-index: 1000;
 }
 
 .miuzy-container {
-    width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
+    align-items: center;
 }
 
+/* LOGO */
 .logo img {
     height: 55px;
 }
 
-.menu {
+/* ===========================
+   MENU DESKTOP
+=========================== */
+
+.menu-desktop {
     display: flex;
     gap: 30px;
+    margin-left: auto;
 }
 
-.menu-btn {
-    text-decoration: none;
-    color: black;
+.menu-desktop a {
     font-weight: 600;
+    text-decoration: none;
+    color: #000;
     font-size: 16px;
-    position: relative;
-    transition: color 0.3s ease;
 }
 
-.menu-btn:hover {
+.menu-desktop a:hover {
     color: #ffb800;
 }
 
-.menu-btn::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 0%;
-    height: 2px;
-    background-color: #ffb800;
-    transition: width 0.3s ease;
+/* ===========================
+   HAMBURGER BOUTON
+=========================== */
+
+.burger {
+    width: 32px;
+    height: 24px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-left: auto;
 }
 
-.menu-btn:hover::after {
+.burger span {
     width: 100%;
+    height: 4px;
+    background: #000;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+/* ANIMATION */
+.burger.open span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+}
+.burger.open span:nth-child(2) {
+    opacity: 0;
+}
+.burger.open span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+}
+
+/* ===========================
+   MENU MOBILE
+=========================== */
+
+.menu-mobile {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    top: 80px;
+    left: 0;
+    background: #8f3fc9;
+    padding: 20px 40px;
+    gap: 15px;
+    z-index: 999;
+}
+
+.menu-mobile a {
+    font-weight: 600;
+    color: black;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.menu-mobile a:hover {
+    color: #ffb800;
+}
+
+.menu-mobile.active {
+    display: flex;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 900px) {
+
+    .menu-desktop {
+        display: none;
+    }
+
+    .burger {
+        display: flex;
+    }
 }

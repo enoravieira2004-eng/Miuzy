@@ -46,3 +46,74 @@
 .footer-text {
     font-size: 14px;
 }
+/* =============================== */
+/* MOBILE : LOGO À GAUCHE + TOUT À DROITE */
+/* =============================== */
+@media (max-width: 768px) {
+
+    .miuzy-footer-container {
+        display: grid;
+        grid-template-columns: 35% 65%;   /* 2 colonnes fixes */
+        align-items: center;
+        padding: 30px 10px;
+    }
+
+    /* Colonne gauche = LOGO */
+    .footer-left {
+        grid-column: 1 / 2;
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer-logo {
+        width: 100%;
+        max-width: 140px;
+    }
+
+    /* COLONNE DROITE : on fusionne TOUT ! */
+    .footer-center,
+    .footer-right {
+        grid-column: 2 / 3;
+        text-align: center;
+    }
+
+    /* On empêche les blocs de se mettre sur la même ligne */
+    .footer-center {
+        margin-bottom: 20px;
+    }
+
+    /* TITRES */
+    .footer-title {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    /* ICONES CENTRÉES */
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .social-icons img {
+        width: 32px;
+        height: 32px;
+        transition: 0.3s;
+    }
+
+    /* HOOVER JAUNE */
+    .social-icons img:hover {
+        filter: drop-shadow(0 0 3px #ffb800);
+        opacity: 0.8;
+    }
+    
+
+    .footer-text {
+        font-size: 15px;
+        line-height: 1.5;
+        text-align: center;
+    }
+}
+
