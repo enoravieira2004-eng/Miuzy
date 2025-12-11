@@ -32,7 +32,10 @@ get_header();
             <option value="electro">Electro</option>
         </select>
 
-        <button id="filter-btn" class="search-btn"></button>
+       <button id="filter-btn" class="search-btn">
+    <img src="assets/images/loupe.svg" alt="Rechercher">
+</button>
+
     </div>
 </div>
 
@@ -67,11 +70,17 @@ get_header();
 }
 
 .search-btn {
-    padding: 10px 18px;
-    border-radius: 50%;
-    background: white;
-    border: 1px solid #000;
+    background: transparent;
+    border: none;
+    padding: 0;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.search-btn img {
+    width: 28px;     /* ajuste selon ton SVG */
+    height: 28px;
 }
 
 .ticket {
@@ -123,6 +132,10 @@ get_header();
     color: #7a4dff;
     border-radius: 18px;
     cursor: pointer;
+}
+.filters select {
+    padding-right: 32px; /* espace pour éloigner la flèche */
+    background-position: right 12px center; /* recule la flèche */
 }
 
 </style>
