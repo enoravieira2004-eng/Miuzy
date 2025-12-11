@@ -1,7 +1,7 @@
 <?php
 /* Template name: User Profil */
 
-// Vérifier si l'utilisateur est connecté
+// Redirect user if not logged in
 if (!is_user_logged_in()) {
     wp_redirect(wp_login_url());
     exit;
@@ -11,7 +11,6 @@ $current_user = wp_get_current_user();
 get_header();
 ?>
 
-
 <div class="user-profile-container">
     <div class="profile-content">
         
@@ -20,18 +19,40 @@ get_header();
             <h2 class="section-title">PARAMETRES GENERALES</h2>
             <div class="section-content">
                 <div class="profile-header">
+
+                    <!-- AVATAR -->
                     <div class="profile-image">
-                        <?php echo get_avatar($current_user->ID, 80); ?>
+                        <?php
+                        $custom_avatar = get_user_meta($current_user->ID, 'custom_avatar', true);
+
+                        if ($custom_avatar) {
+                            echo '<img src="' . esc_url($custom_avatar) . '" class="avatar-custom" width="80" height="80">';
+                        } else {
+                            echo get_avatar($current_user->ID, 80);
+                        }
+                        ?>
+
+                        <!-- Hidden by default -->
+                        <input type="file" id="avatar-upload" accept="image/*" class="hidden" onchange="uploadAvatar(this)">
+
+                        <button type="button" class="avatar-edit-icon hidden"
+                                onclick="document.getElementById('avatar-upload').click();">
+                                <i class="fa-solid fa-camera"></i>
+                        </button>
                     </div>
+
+                    <!-- NAME + EMAIL -->
                     <div class="profile-info">
                         <div class="editable-field">
                             <span class="display-name"><?php echo esc_html($current_user->display_name); ?></span>
                             <input type="text" class="edit-name hidden" value="<?php echo esc_attr($current_user->display_name); ?>">
                         </div>
+
                         <div class="editable-field">
                             <span class="display-email"><?php echo esc_html($current_user->user_email); ?></span>
                             <input type="email" class="edit-email hidden" value="<?php echo esc_attr($current_user->user_email); ?>">
                         </div>
+
                         <button class="btn-edit" onclick="toggleEdit()">Modifier</button>
                         <button class="btn-save hidden" onclick="saveProfile()">Enregistrer</button>
                     </div>
@@ -47,17 +68,18 @@ get_header();
                     <div class="form-row">
                         <div class="form-group">
                             <label>Mot de passe actuel</label>
-                            <input type="password" id="current_password" name="current_password" class="form-input">
+                            <input type="password" id="current_password" class="form-input">
                         </div>
                         <div class="form-group">
                             <label>Nouveau mot de passe</label>
-                            <input type="password" id="new_password" name="new_password" class="form-input">
+                            <input type="password" id="new_password" class="form-input">
                         </div>
                     </div>
+
                     <div class="form-row">
                         <div class="form-group">
                             <label>Vérification du mot de passe</label>
-                            <input type="password" id="confirm_password" name="confirm_password" class="form-input">
+                            <input type="password" id="confirm_password" class="form-input">
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn-validate" onclick="validatePassword()">Valider</button>
@@ -83,6 +105,7 @@ get_header();
                             <option value="it">Italiano</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label>Devise</label>
                         <select class="form-select" id="currency">
@@ -104,22 +127,22 @@ get_header();
             <div class="section-content">
                 <p class="section-description">Nous contacter ? écrivez nous via le service client...</p>
                 <form id="contact-form" class="contact-form">
-                    <textarea class="form-textarea" id="message" name="message" rows="6" placeholder="Votre message..."></textarea>
+                    <textarea class="form-textarea" id="message" rows="6" placeholder="Votre message..."></textarea><br/>
                     <button type="button" class="btn-send" onclick="sendMessage()">Envoyer</button>
                 </form>
             </div>
         </section>
 
-        <!-- AJOUT D'UN EVENEMENT -->
+        <!-- AJOUT EVENEMENT -->
         <section class="profile-section">
             <h2 class="section-title">AJOUT D'UN EVENEMENT</h2>
             <div class="section-content">
-                <p class="section-description">Vous souhaitez organiser un événement ? Introduisez les données nécessaire à la prochaine page</p>
+                <p class="section-description">Vous souhaitez organiser un événement ?</p>
                 <a href="<?php echo home_url('/mon-evenement'); ?>" class="btn-event">Mon évènement</a>
             </div>
         </section>
 
-        <!-- QUITTER VOTRE COMPTE -->
+        <!-- LOGOUT -->
         <section class="profile-section">
             <h2 class="section-title">QUITTER VOTRE COMPTE</h2>
             <div class="section-content">
@@ -131,129 +154,168 @@ get_header();
     </div>
 </div>
 
+<?php get_footer(); ?>
+
+<!-- ======================== JAVASCRIPT ============================= -->
+
 <script>
-jQuery(document).ready(function($) {
-    
-    // Toggle edit mode
-    window.toggleEdit = function() {
-        $('.display-name, .display-email').toggleClass('hidden');
-        $('.edit-name, .edit-email').toggleClass('hidden');
-        $('.btn-edit').toggleClass('hidden');
-        $('.btn-save').toggleClass('hidden');
-    }
+// ---------------- AVATAR UPLOAD ----------------
+function uploadAvatar(input) {
+    if (input.files.length === 0) return;
 
-    // Save profile
-    window.saveProfile = function() {
-        var newName = $('.edit-name').val();
-        var newEmail = $('.edit-email').val();
+    let formData = new FormData();
+    formData.append('avatar', input.files[0]);
+    formData.append('action', 'miuzy_upload_avatar');
+    formData.append('nonce', '<?php echo wp_create_nonce("miuzy_avatar_nonce"); ?>');
 
-        $.ajax({
-            url: '<?php echo admin_url('admin-ajax.php'); ?>',
-            type: 'POST',
-            data: {
-                action: 'update_user_profile',
-                name: newName,
-                email: newEmail,
-                nonce: '<?php echo wp_create_nonce('update_profile_nonce'); ?>'
-            },
-            success: function(response) {
-                if(response.success) {
-                    $('.display-name').text(newName);
-                    $('.display-email').text(newEmail);
-                    toggleEdit();
-                    alert('Profil mis à jour avec succès !');
-                } else {
-                    alert('Erreur: ' + response.data);
-                }
-            }
-        });
-    }
-
-    // Validate password
-    window.validatePassword = function() {
-        var currentPass = $('#current_password').val();
-        var newPass = $('#new_password').val();
-        var confirmPass = $('#confirm_password').val();
-
-        if(!currentPass || !newPass || !confirmPass) {
-            alert('Veuillez remplir tous les champs');
-            return;
+    fetch("<?php echo admin_url('admin-ajax.php'); ?>", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(response => {
+        if (response.success) {
+            document.querySelector(".profile-image img").src = response.data.url;
+            alert("Votre avatar a été mis à jour !");
+        } else {
+            alert("Erreur: " + response.data);
         }
+    });
+}
 
-        if(newPass !== confirmPass) {
-            alert('Les mots de passe ne correspondent pas');
-            return;
-        }
+// ---------------- EDIT MODE TOGGLE ----------------
+function toggleEdit() {
+    document.querySelector(".btn-edit").classList.add("hidden");
+    document.querySelector(".btn-save").classList.remove("hidden");
 
-        $.ajax({
-            url: '<?php echo admin_url('admin-ajax.php'); ?>',
-            type: 'POST',
-            data: {
-                action: 'update_user_password',
-                current_password: currentPass,
-                new_password: newPass,
-                nonce: '<?php echo wp_create_nonce('update_password_nonce'); ?>'
-            },
-            success: function(response) {
-                if(response.success) {
-                    alert('Mot de passe modifié avec succès !');
-                    $('#password-form')[0].reset();
-                } else {
-                    alert('Erreur: ' + response.data);
-                }
+    document.querySelector(".edit-name").classList.remove("hidden");
+    document.querySelector(".display-name").classList.add("hidden");
+
+    document.querySelector(".edit-email").classList.remove("hidden");
+    document.querySelector(".display-email").classList.add("hidden");
+
+    // Show small avatar icon
+    document.querySelector(".avatar-edit-icon").classList.remove("hidden");
+}
+
+function saveProfile() {
+    document.querySelector(".btn-edit").classList.remove("hidden");
+    document.querySelector(".btn-save").classList.add("hidden");
+
+    document.querySelector(".edit-name").classList.add("hidden");
+    document.querySelector(".display-name").classList.remove("hidden");
+
+    document.querySelector(".edit-email").classList.add("hidden");
+    document.querySelector(".display-email").classList.remove("hidden");
+
+    // Hide avatar icon again
+    document.querySelector(".avatar-edit-icon").classList.add("hidden");
+
+    // Send AJAX request
+    jQuery.ajax({
+        url: '<?php echo admin_url('admin-ajax.php'); ?>',
+        type: 'POST',
+        data: {
+            action: 'update_user_profile',
+            name: jQuery('.edit-name').val(),
+            email: jQuery('.edit-email').val(),
+            nonce: '<?php echo wp_create_nonce('update_profile_nonce'); ?>'
+        },
+        success: function(response) {
+            if(response.success) {
+                jQuery('.display-name').text(jQuery('.edit-name').val());
+                jQuery('.display-email').text(jQuery('.edit-email').val());
+                alert('Profil mis à jour avec succès !');
+            } else {
+                alert('Erreur: ' + response.data);
             }
-        });
+        }
+    });
+}
+
+// ---------------- UPDATE PASSWORD ----------------
+function validatePassword() {
+    var currentPass = document.getElementById('current_password').value;
+    var newPass = document.getElementById('new_password').value;
+    var confirmPass = document.getElementById('confirm_password').value;
+
+    if (!currentPass || !newPass || !confirmPass) {
+        alert('Veuillez remplir tous les champs');
+        return;
     }
 
-    // Send message
-    window.sendMessage = function() {
-        var message = $('#message').val();
-
-        if(!message) {
-            alert('Veuillez saisir un message');
-            return;
-        }
-
-        $.ajax({
-            url: '<?php echo admin_url('admin-ajax.php'); ?>',
-            type: 'POST',
-            data: {
-                action: 'send_client_message',
-                message: message,
-                nonce: '<?php echo wp_create_nonce('send_message_nonce'); ?>'
-            },
-            success: function(response) {
-                if(response.success) {
-                    alert('Message envoyé avec succès !');
-                    $('#contact-form')[0].reset();
-                } else {
-                    alert('Erreur: ' + response.data);
-                }
-            }
-        });
+    if (newPass !== confirmPass) {
+        alert('Les mots de passe ne correspondent pas');
+        return;
     }
 
-    // Save language and currency on change
-    $('#language, #currency').change(function() {
-        var language = $('#language').val();
-        var currency = $('#currency').val();
+    jQuery.ajax({
+        url: '<?php echo admin_url("admin-ajax.php"); ?>',
+        type: 'POST',
+        data: {
+            action: 'update_user_password',
+            current_password: currentPass,
+            new_password: newPass,
+            nonce: '<?php echo wp_create_nonce("update_password_nonce"); ?>'
+        },
+        success: function(response) {
+            if (response.success) {
+                alert('Mot de passe modifié avec succès !');
+                document.getElementById("password-form").reset();
+            } else {
+                alert('Erreur: ' + response.data);
+            }
+        }
+    });
+}
 
-        $.ajax({
-            url: '<?php echo admin_url('admin-ajax.php'); ?>',
+// ---------------- SEND CLIENT MESSAGE ----------------
+function sendMessage() {
+    var msg = document.getElementById('message').value;
+
+    if (!msg) {
+        alert('Veuillez saisir un message');
+        return;
+    }
+
+    jQuery.ajax({
+        url: '<?php echo admin_url("admin-ajax.php"); ?>',
+        type: 'POST',
+        data: {
+            action: 'send_client_message',
+            message: msg,
+            nonce: '<?php echo wp_create_nonce("send_message_nonce"); ?>'
+        },
+        success: function(response) {
+            if (response.success) {
+                alert('Message envoyé avec succès !');
+                document.getElementById("contact-form").reset();
+            } else {
+                alert('Erreur: ' + response.data);
+            }
+        }
+    });
+}
+
+// ---------------- SAVE LANGUAGE & CURRENCY ----------------
+document.addEventListener("DOMContentLoaded", function() {
+
+    // On change → update via AJAX
+    document.getElementById('language').addEventListener('change', updatePreferences);
+    document.getElementById('currency').addEventListener('change', updatePreferences);
+
+    function updatePreferences() {
+        jQuery.ajax({
+            url: '<?php echo admin_url("admin-ajax.php"); ?>',
             type: 'POST',
             data: {
                 action: 'update_preferences',
-                language: language,
-                currency: currency,
-                nonce: '<?php echo wp_create_nonce('update_preferences_nonce'); ?>'
-            },
-            success: function(response) {
-                if(response.success) {
-                    console.log('Préférences mises à jour');
-                }
+                language: document.getElementById('language').value,
+                currency: document.getElementById('currency').value,
+                nonce: '<?php echo wp_create_nonce("update_preferences_nonce"); ?>'
             }
         });
-    });
+    }
 
     // Load saved preferences
     <?php 
@@ -261,17 +323,14 @@ jQuery(document).ready(function($) {
     $language = get_user_meta($user_id, 'user_language', true);
     $currency = get_user_meta($user_id, 'user_currency', true);
     ?>
-    
+
     <?php if ($language): ?>
-    $('#language').val('<?php echo esc_js($language); ?>');
+        document.getElementById('language').value = '<?php echo esc_js($language); ?>';
     <?php endif; ?>
-    
+
     <?php if ($currency): ?>
-    $('#currency').val('<?php echo esc_js($currency); ?>');
+        document.getElementById('currency').value = '<?php echo esc_js($currency); ?>';
     <?php endif; ?>
+
 });
 </script>
-
-<?php
-get_footer();
-?>
