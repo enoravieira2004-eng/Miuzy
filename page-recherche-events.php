@@ -33,7 +33,8 @@ get_header();
         </select>
 
        <button id="filter-btn" class="search-btn">
-    <img src="assets/images/loupe.svg" alt="Rechercher">
+   <img src="<?php echo get_template_directory_uri(); ?>/assets/images/loupe.svg" alt="Rechercher">
+
 </button>
 
     </div>
@@ -134,9 +135,16 @@ get_header();
     cursor: pointer;
 }
 .filters select {
-    padding-right: 32px; /* espace pour éloigner la flèche */
-    background-position: right 12px center; /* recule la flèche */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 12px 45px 12px 20px;
+    background-image: url("<?php echo get_template_directory_uri(); ?>/assets/images/fleche-bas.svg");
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 14px;
 }
+
 
 </style>
 
