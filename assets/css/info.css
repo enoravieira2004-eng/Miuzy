@@ -172,26 +172,6 @@
     box-shadow: 0 5px 15px rgba(61, 24, 211, 0.3);
 }
 
-/* Responsive pour tablettes */
-@media (max-width: 1024px) {
-    .event-container {
-        margin: 30px auto;
-    }
-
-    .image-section,
-    .info-section {
-        min-width: 100%;
-    }
-
-    .info-section {
-        padding: 40px;
-    }
-
-    .event-title {
-        font-size: 36px;
-    }
-}
-
 /* Responsive pour mobile */
 @media (max-width: 768px) {
     .event-title {
