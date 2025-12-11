@@ -104,9 +104,17 @@
 }
 
 /* Form Styles */
-.password-form,
-.contact-form {
+.password-form{
     width: 100%;
+}
+
+textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
 }
 
 .form-row {
@@ -275,4 +283,58 @@ button:disabled {
 
 .profile-section {
     animation: fadeIn 0.5s ease;
+}
+
+.btn-edit-avatar {
+    margin-top: 8px;
+    padding: 4px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    background: #0073aa;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-edit-avatar:hover {
+    background: #005f87;
+}
+
+.avatar-custom {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.profile-image {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-edit-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #0073aa;
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.avatar-edit-icon:hover {
+    background: #005f87;
+}
+
+.avatar-custom, 
+.profile-image img {
+    border-radius: 50%;
+    object-fit: cover;
 }
