@@ -539,3 +539,82 @@ function miuzy_redirect_guests_to_noaccess() {
     }
 }
 add_action( 'template_redirect', 'miuzy_redirect_guests_to_noaccess' );
+
+
+
+
+
+//PAGE RECHERCHE//
+/* --- AJAX Recherche Événements --- */
+add_action('wp_ajax_search_events', 'search_events');
+add_action('wp_ajax_nopriv_search_events', 'search_events');
+
+function search_events() {
+
+    $location = sanitize_text_field($_GET['location']);
+    $date     = sanitize_text_field($_GET['date']);
+    $style    = sanitize_text_field($_GET['style']);
+
+    $args = [
+        'post_type' => 'event', // ton custom post type
+        'posts_per_page' => -1,
+        'meta_query' => []
+    ];
+
+    if ($location) {
+        $args['meta_query'][] = [
+            'key' => 'event_location',
+            'value' => $location,
+            'compare' => 'LIKE'
+        ];
+    }
+
+    if ($date) {
+        $args['meta_query'][] = [
+            'key' => 'event_date',
+            'value' => $date,
+            'compare' => '='
+        ];
+    }
+
+    if ($style) {
+        $args['meta_query'][] = [
+            'key' => 'event_style',
+            'value' => $style,
+            'compare' => 'LIKE'
+        ];
+    }
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) :
+        while ($query->have_posts()) : $query->the_post();
+
+            $price     = get_field('event_price');
+            $address   = get_field('event_address');
+            $img       = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+            ?>
+
+            <div class="ticket">
+                <img src="<?php echo $img; ?>" alt="">
+                <div class="ticket-content">
+                    <h3><?php the_title(); ?></h3>
+                    <p><?php echo wp_trim_words(get_the_content(), 25); ?></p>
+                    <p><strong>Adresse :</strong> <?php echo $address; ?></p>
+                    <p><strong>Prix :</strong> <?php echo $price; ?> €</p>
+                </div>
+
+                <div class="ticket-actions">
+                    <div class="fav-btn">♡</div>
+                    <a href="<?php the_permalink(); ?>" class="more-btn">Voir plus</a>
+                </div>
+            </div>
+
+        <?php
+        endwhile;
+    else :
+        echo "<p>Aucun résultat trouvé…</p>";
+    endif;
+
+    wp_die();
+}
