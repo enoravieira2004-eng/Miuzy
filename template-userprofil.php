@@ -53,6 +53,11 @@ get_header();
                             <input type="email" class="edit-email hidden" value="<?php echo esc_attr($current_user->user_email); ?>">
                         </div>
 
+                          <div class="editable-field">
+                            <span class="display-email"><?php echo esc_html($current_user->user_email); ?></span>
+                            <input type="email" class="edit-email hidden" value="<?php echo esc_attr($current_user->user_email); ?>">
+                        </div>
+
                         <button class="btn-edit" onclick="toggleEdit()">Modifier</button>
                         <button class="btn-save hidden" onclick="saveProfile()">Enregistrer</button>
                     </div>

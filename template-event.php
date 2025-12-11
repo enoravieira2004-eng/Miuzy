@@ -9,13 +9,12 @@ get_header();
 <div class="event-page">
 
     <!-- HERO -->
- <section class="event-hero" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/assets/images/pexels-thibault-trillet-44912-167636.jpg');">
-    <div class="event-hero-overlay"></div>
-    <div class="event-hero-content container">
-        <h1>LÀ OÙ LES<br><span>ÉVÈNEMENTS LOCAUX</span><br>PRENNENT <strong>VIE !</strong></h1>
-    </div>
-</section>
-
+    <section class="event-hero" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>assets/images/pexels-thibault-trillet-44912-167636.jpg>
+        <div class="event-hero-overlay"></div>
+        <div class="event-hero-content container">
+            <h1>LÀ OÙ LES<br><span>ÉVÈNEMENTS LOCAUX</span><br>PRENNENT <strong>VIE !</strong></h1>
+        </div>
+    </section>
 
     <div class="container event-main py-5">
 
@@ -180,7 +179,7 @@ get_header();
                                 <label>Nombre de personnes</label>
                                 <div class="d-flex align-items-center event-counter">
                                     <button type="button" class="btn counter-btn" data-target="#nbp" data-step="-1">−</button>
-                                    <input id="nbp" type="text" name="nombre_personnes" class="form-control event-input text-center mx-2" value="0">
+                                    <input id="nbp" type="number" name="nombre_personnes" class="form-control event-input text-center mx-2" value="0" min="0">
                                     <button type="button" class="btn counter-btn" data-target="#nbp" data-step="1">+</button>
                                 </div>
                             </div>
@@ -189,7 +188,7 @@ get_header();
                                 <label>Prix</label>
                                 <div class="d-flex align-items-center event-counter">
                                     <button type="button" class="btn counter-btn" data-target="#prix" data-step="-1">−</button>
-                                    <input id="prix" type="text" name="prix" class="form-control event-input text-center mx-2" value="0">
+                                    <input id="prix" type="number" name="prix" class="form-control event-input text-center mx-2" value="0" min="0">
                                     <button type="button" class="btn counter-btn" data-target="#prix" data-step="1">+</button>
                                 </div>
                             </div>
