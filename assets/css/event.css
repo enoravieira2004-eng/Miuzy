@@ -1,274 +1,340 @@
-/* -------------------------- */
-/* PAGE GENERALE */
-/* -------------------------- */
-
-.event-page {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background-color: #f7f7f7;
-    color: #111;
+/* User Profile Styles */
+.user-profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: "PP Telegraf";
 }
 
-.container {
-    max-width: 1100px;
+.profile-content {
+    background: #fff;
 }
 
-/* -------------------------- */
-/* HERO */
-/* -------------------------- */
-
-.event-hero {
-    height: 330px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
+/* Section Styles */
+.profile-section {
+    margin-bottom: 60px;
 }
 
-.event-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
-}
-
-.event-hero-content {
-    position: relative;
-    padding-bottom: 40px;
-    color: #fff;
-}
-
-.event-hero h1 {
-    font-size: 2.8rem;
-    line-height: 1.1;
-    font-weight: 900;
-    text-transform: uppercase;
-}
-
-.event-hero span {
+.section-title {
+    font-size: 24px;
     font-weight: 700;
-    font-size: 2.6rem;
-}
-
-/* -------------------------- */
-/* TITRES DE SECTION */
-/* -------------------------- */
-
-.event-section-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-top: 5px;
+    margin-bottom: 30px;
     color: #000;
+    letter-spacing: 0.5px;
 }
 
-/* -------------------------- */
-/* INPUTS et SELECTS */
-/* -------------------------- */
-
-.event-input, 
-.event-input-file {
-    border-radius: 999px;
-    border: 1px solid #d0d0d0;
-    background-color: white;
-    padding: 10px 20px;
-    font-size: 0.95rem;
+.section-content {
+    padding-left: 20px;
 }
 
-.event-input-file {
-    border-radius: 999px;
-    padding: 10px 18px;
+.section-description {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 14px;
 }
 
-textarea.event-input {
-    border-radius: 25px;
-    padding: 15px 20px;
-    resize: vertical;
+/* Profile Header */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
-/* Boutons de type file input */
-.event-input-file::-webkit-file-upload-button {
-    background-color: transparent;
-    border: 2px solid #3D18D3;
-    border-radius: 999px;
-    padding: 6px 16px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    color: #3D18D3;
-    transition: 0.2s;
-}
-
-.event-input-file::-webkit-file-upload-button:hover {
-    background-color: #3D18D3;
-    color: white;
-}
-
-/* -------------------------- */
-/* COMPTEURS (+ / -) */
-/* -------------------------- */
-
-.event-counter .btn {
+.profile-image img {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    padding: 0;
-    border: 2px solid #3D18D3;
-    color: #3D18D3;
-    background: white;
+    object-fit: cover;
 }
 
-.event-counter .btn:hover {
-    background: #3D18D3 !important;
-    color: white !important;
+.profile-info {
+    flex: 1;
 }
 
-.event-counter input {
-    width: 70px;
-    border-radius: 999px;
+.editable-field {
+    margin-bottom: 8px;
 }
 
-/* -------------------------- */
-/* RÈGLEMENTATION */
-/* -------------------------- */
+.display-name,
+.display-email {
+    display: block;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 5px;
+}
 
-.event-rules-box {
-    background-color: #fff;
+.display-name {
+    font-weight: 600;
+}
+
+.edit-name,
+.edit-email {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.btn-edit,
+.btn-save {
+    background: #fff;
+    color: #5835D4;
+    border: 2px solid #5835D4;
+    padding: 8px 20px;
     border-radius: 25px;
-    padding: 18px 22px;
-    border: 1px solid #e0e0e0;
-    font-size: 0.9rem;
-    max-height: 150px;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
-.event-rules-box.expanded {
-    max-height: 600px;
-}
-
-.event-checkbox {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
-    border: 2px solid #3D18D3;
-}
-
-.event-checkbox:checked {
-    background-color: #3D18D3;
+.btn-edit:hover,
+.btn-save:hover {
+    background: #3D18D3;
+    color: #fff;
     border-color: #3D18D3;
 }
 
-/* -------------------------- */
-/* BOUTONS GLOBAUX */
-/* -------------------------- */
-
-.event-page .btn {
-    border-radius: 999px;
-    padding: 8px 26px;
-    font-weight: 500;
-    transition: 0.25s ease-in-out;
+/* Form Styles */
+.password-form{
+    width: 100%;
 }
 
-/* Normal */
-.event-page .btn-primary,
-.event-page .btn-outline-primary {
-    border: 2px solid #3D18D3;
-    color: #3D18D3;
-    background: white;
+textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
 }
 
-/* Hover global : violet + blanc */
-.event-page .btn:hover,
-.event-page .btn:focus {
-    background-color: #3D18D3 !important;
-    color: white !important;
-    border-color: #3D18D3 !important;
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 20px;
 }
 
-/* Voir plus */
-.btn-see-more {
-    border: 2px solid #3D18D3;
-    color: #3D18D3;
-}
-
-/* -------------------------- */
-/* TICKET FINAL */
-/* -------------------------- */
-
-.event-ticket-wrapper {
-    margin-top: 50px;
-}
-
-.event-ticket {
-    background: white;
-    border-radius: 25px;
-    padding: 25px 30px;
+.form-group {
     display: flex;
-    gap: 25px;
-    box-shadow: 0 0 0 1px #e4e4e4;
+    flex-direction: column;
 }
 
-.event-ticket-image img {
-    width: 220px;
-    height: 220px;
-    border-radius: 25px;
-    object-fit: cover;
-    background-color: #eee;
-}
-
-.ticket-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-}
-
-.ticket-description {
-    font-size: 0.95rem;
-    margin: 10px 0;
-    line-height: 1.4;
-}
-
-.ticket-meta {
-    font-size: 0.95rem;
+.form-group label {
+    font-size: 14px;
+    color: #000;
     margin-bottom: 10px;
+    font-weight: 500;
 }
 
-.ticket-heart {
-    font-size: 1.8rem;
+.form-input,
+.form-select,
+.form-textarea {
+    padding: 12px 16px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #fff;
+    color: #000;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #5835D4;
+}
+
+.form-select {
     cursor: pointer;
-    transition: 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23666' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
 }
 
-.ticket-heart:hover {
-    color: #3D18D3;
+.form-textarea {
+    resize: vertical;
+    min-height: 150px;
+    border-radius: 20px;
+    font-family: inherit;
 }
 
-/* Bouton voir plus sur le ticket */
-.btn-ticket-more {
-    border: 2px solid #3D18D3;
-    color: #3D18D3;
+/* Buttons */
+.btn-validate,
+.btn-send,
+.btn-event {
+    background: #fff;
+    color: #5835D4;
+    border: 2px solid #5835D4;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-validate:hover,
+.btn-send:hover,
+.btn-event:hover {
+    background: #3D18D3;
+    color: #fff;
+    border-color: #3D18D3;
+}
+
+.btn-validate {
+    width: 100%;
+    margin-top: 28px;
+}
+
+.btn-send {
     margin-top: 15px;
 }
 
-/* -------------------------- */
-/* RESPONSIVE */
-/* -------------------------- */
+.btn-logout {
+    background: #fff;
+    color: #FFB800;
+    border: 2px solid #FFB800;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
 
+.btn-logout:hover {
+    background: #FFB800;
+    color: #fff;
+    border-color: #FFB800;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-
-    .event-hero {
-        height: 260px;
-    }
-
-    .event-ticket {
+    .profile-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .event-ticket-image img {
-        width: 100%;
-        height: auto;
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
-    .event-ticket-actions {
-        align-items: flex-start;
-        width: 100%;
+    .section-title {
+        font-size: 20px;
     }
+
+    .btn-validate {
+        margin-top: 0;
+    }
+}
+
+/* Select dropdown styling */
+.form-select option {
+    padding: 10px;
+}
+
+/* Form validation states */
+.form-input.error,
+.form-textarea.error {
+    border-color: #ff4444;
+}
+
+.form-input.success,
+.form-textarea.success {
+    border-color: #00C851;
+}
+
+/* Loading state */
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-section {
+    animation: fadeIn 0.5s ease;
+}
+
+.btn-edit-avatar {
+    margin-top: 8px;
+    padding: 4px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    background: #0073aa;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-edit-avatar:hover {
+    background: #005f87;
+}
+
+.avatar-custom {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.profile-image {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-edit-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #0073aa;
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.avatar-edit-icon:hover {
+    background: #005f87;
+}
+
+.avatar-custom, 
+.profile-image img {
+    border-radius: 50%;
+    object-fit: cover;
 }
