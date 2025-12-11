@@ -70,3 +70,55 @@ get_header();
 </div>
 
 <?php get_footer(); ?>
+
+<style>
+.reservations-container {
+    width: 85%;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+}
+
+.reserv-title {
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.filter-box {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.filter-box select {
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+.ticket-card {
+    display: flex;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.ticket-card img {
+    width: 150px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.ticket-card h3 {
+    margin-top: 0;
+}
+
+.voir-plus {
+    display: block;
+    margin-top: 15px;
+    color: black;
+    font-size: 14px;
+}
+
+</style>
