@@ -13,7 +13,9 @@ get_header();
         <select id="filter-location">
             <option value="">Lieu</option>
             <option value="edinburgh">Écosse / Edinburgh</option>
-            <option value="glasgow">Écosse / Glasgow</option>
+            <option value="glasgow">Belgique / Bruxelles</option>
+            <option value="dublin">France / Paris</option>
+             <option value="glasgow">Pays-bas / Amsterdam</option>
             <option value="dublin">Irlande / Dublin</option>
         </select>
 
@@ -30,7 +32,7 @@ get_header();
             <option value="electro">Electro</option>
         </select>
 
-        <button id="filter-btn" class="search-btn">🔍</button>
+        <button id="filter-btn" class="search-btn"></button>
     </div>
 </div>
 
