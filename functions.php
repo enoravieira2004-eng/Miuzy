@@ -41,6 +41,9 @@ function theme_scripts()
     wp_enqueue_style('home-style', get_template_directory_uri() . '/assets/css/home.css');
     wp_enqueue_style('search-style', get_template_directory_uri() . '/assets/css/search.css');
 
+
+    // ticket CSS
+    wp_enqueue_style('ticket-style', get_template_directory_uri() . '/assets/css/ticket.css');
    
 
 
@@ -731,3 +734,27 @@ function render_event_meta_display($post) {
 
     echo '</table>';
 }
+
+// ticket css functions //
+add_action('wp_enqueue_scripts', function () {
+
+    // Charger le CSS sur les pages "event"
+    if (is_singular('event')) {
+        wp_enqueue_style(
+            'ticket-css', // nom interne
+            get_stylesheet_directory_uri() . '/ticket.css', // chemin du fichier
+            [],
+            '1.0'
+        );
+    }
+
+    // Charger le CSS sur la page "Mes favoris"
+    if (is_page('mes-favoris')) {
+        wp_enqueue_style(
+            'ticket-css',
+            get_stylesheet_directory_uri() . '/ticket.css',
+            [],
+            '1.0'
+        );
+    }
+});
