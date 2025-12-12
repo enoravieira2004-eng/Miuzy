@@ -3,6 +3,53 @@
 get_header();
 ?>
 
+<div class="panier-wrapper">
+
+    <h1>Panier</h1>
+
+    <!-- --------------------------
+        FAUX TICKET (modifiable)
+    --------------------------- -->
+    <div class="ticket-card">
+      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/The shamrock howlers.jpg" 
+     alt="The Shamrock Howlers">
+
+        <div class="ticket-info">
+            <h3>The Shamrock Howlers</h3>
+            <p>Né dans un port battu par les vents écossais, ce trio rock mêle riffs fougueux et énergie rugueuse...</p>
+
+            <p><strong>Adresse :</strong> Edinburgh, Écosse</p>
+            <p><strong>Prix :</strong> 13 £</p>
+
+            <button class="btn-plus">Voir plus</button>
+        </div>
+    </div>
+
+
+    <!-- --------------------------
+          QUANTITY SELECTOR
+    --------------------------- -->
+    <div class="quantity-box">
+        <button id="btn-minus">−</button>
+        <span id="ticket-count" class="quantity-number">0</span>
+        <button id="btn-plus">+</button>
+    </div>
+
+
+    <!-- --------------------------
+          PAYMENT METHODS
+    --------------------------- -->
+    <p class="payment-title">Moyens de paiement</p>
+
+    <div class="payment-container">
+        <button class="payment-btn">Bancontact</button>
+        <button class="payment-btn">Visa</button>
+        <button class="payment-btn">Apple Pay</button>
+        <button class="payment-btn">Google Pay</button>
+    </div>
+
+</div>
+
 <style>
 /* --- CONTAINER --- */
 .panier-wrapper{
@@ -111,53 +158,6 @@ get_header();
     color: #fff;
 }
 </style>
-
-
-<div class="panier-wrapper">
-
-    <h1>Panier</h1>
-
-    <!-- --------------------------
-        FAUX TICKET (modifiable)
-    --------------------------- -->
-    <div class="ticket-card">
-        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d" alt="concert">
-
-        <div class="ticket-info">
-            <h3>The Shamrock Howlers</h3>
-            <p>Né dans un port battu par les vents écossais, ce trio rock mêle riffs fougueux et énergie rugueuse...</p>
-
-            <p><strong>Adresse :</strong> Edinburgh, Écosse</p>
-            <p><strong>Prix :</strong> 13 £</p>
-
-            <button class="btn-plus">Voir plus</button>
-        </div>
-    </div>
-
-
-    <!-- --------------------------
-          QUANTITY SELECTOR
-    --------------------------- -->
-    <div class="quantity-box">
-        <button id="btn-minus">−</button>
-        <span id="ticket-count" class="quantity-number">0</span>
-        <button id="btn-plus">+</button>
-    </div>
-
-
-    <!-- --------------------------
-          PAYMENT METHODS
-    --------------------------- -->
-    <p class="payment-title">Moyens de paiement</p>
-
-    <div class="payment-container">
-        <button class="payment-btn">Bancontact</button>
-        <button class="payment-btn">Visa</button>
-        <button class="payment-btn">Apple Pay</button>
-        <button class="payment-btn">Google Pay</button>
-    </div>
-
-</div>
 
 
 <script>
