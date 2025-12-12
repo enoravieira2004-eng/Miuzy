@@ -30,7 +30,7 @@ get_header();
             <!-- POUBELLE IMAGE -->
             <button class="delete-btn" id="delete-ticket">
                 <img 
-                    src="<?php echo get_template_directory_uri(); ?>/assets/images/trash.png" 
+                    src="<?php echo get_template_directory_uri(); ?>/assets/images/poubelle.svg" 
                     alt="Supprimer">
             </button>
 
