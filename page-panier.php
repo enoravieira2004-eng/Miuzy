@@ -27,7 +27,13 @@ get_header();
                 <button class="btn-plus">Voir plus</button>
             </div>
 
-            <button class="delete-btn" id="delete-ticket">🗑️</button>
+            <!-- POUBELLE IMAGE -->
+            <button class="delete-btn" id="delete-ticket">
+                <img 
+                    src="<?php echo get_template_directory_uri(); ?>/assets/images/trash.png" 
+                    alt="Supprimer">
+            </button>
+
         </div>
 
         <!-- Quantité -->
@@ -52,7 +58,6 @@ get_header();
         </div>
 
     </div>
-
 
     <!-- =====================
         PANIER VIDE
@@ -104,6 +109,7 @@ get_header();
     object-fit: cover;
 }
 
+/* Boutons généraux */
 .btn-plus,
 .payment-btn{
     border: 2px solid #3D18D3;
@@ -121,15 +127,28 @@ get_header();
     color: #fff;
 }
 
+/* Poubelle custom */
 .delete-btn{
     margin-left: auto;
     background: none;
     border: none;
-    font-size: 26px;
     cursor: pointer;
-    color: #000;
+    padding: 0;
 }
 
+.delete-btn img{
+    width: 28px;
+    height: auto;
+    opacity: 0.7;
+    transition: .2s;
+}
+
+.delete-btn img:hover{
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Quantité */
 .quantity-box{
     display: flex;
     align-items: center;
