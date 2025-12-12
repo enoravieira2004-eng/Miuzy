@@ -20,7 +20,13 @@
         <!-- MENU DESKTOP -->
         <nav class="menu-desktop">
             <a href="#">Recherche</a>
-            <a href="#">Réservation</a>
+
+            <?php if ( is_user_logged_in() ) : ?>
+                <a href="<?php echo home_url('/reservation'); ?>">Réservation</a>
+            <?php else : ?>
+                <a href="<?php echo home_url('/noacces'); ?>">Réservation</a>
+            <?php endif; ?>
+
             <a href="#">Favoris</a>
             <a href="#">Panier</a>
             <a href="<?php echo home_url('/compte'); ?>">Compte</a>
@@ -38,12 +44,16 @@
     <!-- MENU MOBILE -->
     <nav class="menu-mobile" id="mobileMenu">
         <a href="#">Recherche</a>
-        <a href="#">Réservation</a>
+
+        <?php if ( is_user_logged_in() ) : ?>
+            <a href="<?php echo home_url('/reservation'); ?>">Réservation</a>
+        <?php else : ?>
+            <a href="<?php echo home_url('/noacces'); ?>">Réservation</a>
+        <?php endif; ?>
+
         <a href="#">Favoris</a>
         <a href="#">Panier</a>
         <a href="<?php echo home_url('/compte'); ?>">Compte</a>
     </nav>
 
 </header>
-
-<main id="main-content">
