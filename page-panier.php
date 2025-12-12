@@ -83,7 +83,6 @@ get_header();
     width: 90%;
     max-width: 1200px;
     margin: 60px auto;
-    font-family: Arial, sans-serif;
 }
 
 .ticket-card{
