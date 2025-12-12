@@ -9,6 +9,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php if ( !is_page( array( 'inscription', 'login' ) ) ) : ?>
 <header class="miuzy-header">
     <div class="miuzy-container">
 
@@ -57,3 +58,4 @@
     </nav>
 
 </header>
+<?php endif; ?>

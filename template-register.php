@@ -41,22 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 }
+get_header();
 ?>
 
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-<head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/main.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
-    <?php wp_head(); ?>
-</head>
-
-<body class="miuzy-login-body">
 
 <div class="miuzy-login-wrapper">
 <div class="miuzy-login-box">
@@ -124,27 +111,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </div>
 </div>
 
-<script>
-jQuery(document).ready(function($){
-    $('#miuzy-register-form').on('submit', function(){
-        let ok = true;
-
-        $(this).find('input, select').each(function(){
-            if(!$(this).val().trim()){
-                $(this).css('border-color','red');
-                ok = false;
-            } else {
-                $(this).css('border-color','#ccc');
-            }
-        });
-
-        return ok;
-    });
-});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <?php wp_footer(); ?>
-</body>
-</html>
