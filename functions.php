@@ -227,6 +227,20 @@ function show_custom_user_column_data($value, $column_name, $user_id)
 }
 add_filter('manage_users_custom_column', 'show_custom_user_column_data', 10, 3);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ========================================
 // FONCTIONS AJAX POUR LE PROFIL UTILISATEUR
 // ========================================
@@ -544,6 +558,19 @@ add_action( 'template_redirect', 'miuzy_redirect_guests_to_noaccess' );
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //PAGE RECHERCHE//
 /* --- AJAX Recherche Événements --- */
 add_action('wp_ajax_search_events', 'search_events');
@@ -619,7 +646,7 @@ function search_events() {
     wp_die();
 }
 
-
+// EVENT POST CREATION//
 // custom post 
 add_action('init', function () {
 
