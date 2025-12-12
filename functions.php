@@ -618,3 +618,89 @@ function search_events() {
 
     wp_die();
 }
+
+
+// custom post 
+add_action('init', function () {
+
+    $labels = array(
+        'name'               => 'Events',
+        'singular_name'      => 'Event',
+        'add_new'            => 'Add Event',
+        'add_new_item'       => 'Add New Event',
+        'edit_item'          => 'Edit Event',
+        'new_item'           => 'New Event',
+        'view_item'          => 'View Event',
+        'search_items'       => 'Search Events',
+        'not_found'          => 'No events found',
+        'not_found_in_trash' => 'No events found in Trash',
+    );
+
+    $args = array(
+        'label'               => 'Events',
+        'labels'              => $labels,
+        'public'              => true,
+        'has_archive'         => true,
+        'menu_icon'           => 'dashicons-calendar',
+        'supports'            => array('title', 'editor', 'thumbnail'),
+        'show_in_rest'        => true, // Enables Gutenberg + API
+    );
+
+    register_post_type('event', $args);
+});
+
+
+add_action('add_meta_boxes', function () {
+    add_meta_box(
+        'event_meta_display',
+        'Event Details',
+        'render_event_meta_display',
+        'event',
+        'normal',
+        'default'
+    );
+});
+
+function render_event_meta_display($post) {
+
+    $fields = [
+        'prenom'           => 'Prénom',
+        'nom'              => 'Nom',
+        'email'            => 'Email',
+        'telephone'        => 'Téléphone',
+        'artist_name'      => 'Artist',
+        'style'            => 'Style',
+        'description'      => 'Description',
+        'adresse'          => 'Adresse',
+        'lieu'             => 'Lieu',
+        'date'             => 'Event Date',
+        'nombre_personnes' => 'Number of People',
+        'prix'             => 'Price',
+        'artist_image_url' => 'Artist Image',
+    ];
+
+    echo '<table class="widefat striped">';
+
+    foreach ($fields as $key => $label) {
+        $value = get_post_meta($post->ID, $key, true);
+
+        if (empty($value)) {
+            continue;
+        }
+
+        echo '<tr>';
+        echo '<th style="width:200px;">' . esc_html($label) . '</th>';
+        echo '<td>';
+
+        if ($key === 'artist_image_url') {
+            echo '<img src="' . esc_url($value) . '" style="max-width:150px;height:auto;" />';
+        } else {
+            echo esc_html($value);
+        }
+
+        echo '</td>';
+        echo '</tr>';
+    }
+
+    echo '</table>';
+}

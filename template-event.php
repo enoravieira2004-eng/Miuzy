@@ -48,6 +48,28 @@ get_header();
                     $uploaded_image_url = $uploaded['url']; // URL de la vraie image uploadée
                 }
             }
+            $event_id = wp_insert_post(array(
+                'post_type'   => 'event',
+                'post_title'  => $prenom . ' ' . $nom . ' – ' . $artiste,
+                'post_content'=> $description,
+                'post_status' => 'publish'
+            ));
+            if ($event_id && !is_wp_error($event_id)) {
+                update_post_meta($event_id, 'prenom', $prenom);
+                update_post_meta($event_id, 'nom', $nom);
+                update_post_meta($event_id, 'email', $email);
+                update_post_meta($event_id, 'telephone', $tel);
+                update_post_meta($event_id, 'artist_name', $artiste);
+                update_post_meta($event_id, 'style', $style);
+                update_post_meta($event_id, 'adresse', $adresse);
+                update_post_meta($event_id, 'lieu', $lieu);
+                update_post_meta($event_id, 'date', $date);
+                update_post_meta($event_id, 'nombre_personnes', $nb_personnes);
+                update_post_meta($event_id, 'prix', $prix);
+                update_post_meta($event_id, 'description', $description);
+                update_post_meta($event_id, 'artist_image_url', $uploaded_image_url);
+            }
+
         ?>
 
             <!-- TICKET FINAL -->
