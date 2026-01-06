@@ -1,8 +1,11 @@
+<?php get_header(); ?>
+
 <?php
-get_header();
+if ( have_posts() ) :
+    while ( have_posts() ) : the_post();
+        the_content();
+    endwhile;
+endif;
 ?>
 
-This is the index page, waouh
-<?php
-get_footer();
-?>
+<?php get_footer(); ?>
