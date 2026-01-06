@@ -2,14 +2,10 @@
 /* Template Name: event */
 get_header();
 ?>
-
-
-
-
 <div class="event-page">
 
     <!-- HERO -->
-    <section class="event-hero" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>assets/images/pexels-thibault-trillet-44912-167636.jpg>
+    <section class="event-hero" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/assets/image/pexels-sebastian-ervi-866902-1763075.jpg">
         <div class="event-hero-overlay"></div>
         <div class="event-hero-content container">
             <h1>LÀ OÙ LES<br><span>ÉVÈNEMENTS LOCAUX</span><br>PRENNENT <strong>VIE !</strong></h1>
@@ -32,12 +28,18 @@ get_header();
             $adresse      = esc_html($_POST['adresse']);
             $lieu         = esc_html($_POST['lieu']);
             $date         = esc_html($_POST['date']);
+            $heure        = esc_html($_POST['heure']);
             $nb_personnes = intval($_POST['nombre_personnes']);
             $prix         = esc_html($_POST['prix']);
             $description  = esc_html($_POST['description']);
 
             // UPLOAD IMAGE ARTISTE
             $uploaded_image_url = '';
+
+            $dateObj = DateTime::createFromFormat('d/m/Y', $date);
+            if ($dateObj) {
+                $date = $dateObj->format('Y-m-d'); // ISO
+            }
 
             if (!empty($_FILES['artist_image']['name'])) {
 
@@ -64,6 +66,7 @@ get_header();
                 update_post_meta($event_id, 'adresse', $adresse);
                 update_post_meta($event_id, 'lieu', $lieu);
                 update_post_meta($event_id, 'date', $date);
+                update_post_meta($event_id, 'heure', $heure);
                 update_post_meta($event_id, 'nombre_personnes', $nb_personnes);
                 update_post_meta($event_id, 'prix', $prix);
                 update_post_meta($event_id, 'description', $description);
@@ -80,7 +83,7 @@ get_header();
                         <?php if ($uploaded_image_url): ?>
                             <img src="<?php echo $uploaded_image_url; ?>" alt="<?php echo $artiste; ?>">
                         <?php else: ?>
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/event-sample.jpg" alt="<?php echo $artiste; ?>">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/image/event-sample.jpg" alt="<?php echo $artiste; ?>">
                         <?php endif; ?>
                     </div>
 
@@ -91,18 +94,11 @@ get_header();
 
                         <p class="ticket-meta">
                             <strong>Adresse :</strong> <?php echo $adresse . ', ' . $lieu; ?><br>
-                            <strong>Date :</strong> <?php echo $date; ?><br>
+                            <strong>Date :</strong> <?php echo date('d/m/Y', strtotime($date)) . ' à ' . $heure; ?><br>
                             <strong>Prix :</strong> <?php echo $prix; ?> €
                         </p>
                     </div>
-
-                    <div class="event-ticket-actions text-end">
-                        <div class="ticket-heart">♡</div>
-
-                        <a href="#" class="btn btn-outline-primary btn-ticket-more">
-                            voir plus
-                        </a>
-                    </div>
+                    
                 </div>
 
                 <div class="mt-4">
@@ -147,8 +143,7 @@ get_header();
                         </div>
                     </div>
                 </div>
-
-                <!-- INFORMATION ÉVÈNEMENT -->
+      <!-- INFORMATION ÉVÈNEMENT -->
                 <div class="row mb-5">
                     <div class="col-md-4">
                         <h2 class="event-section-title">Information de l'évènement</h2>
@@ -172,6 +167,13 @@ get_header();
                                     <option>R&B</option>
                                     <option>Metal</option>
                                     <option>Électro</option>
+                                    <option>Afro</option>
+                                    <option>Folk</option>
+                                    <option>Punk</option>
+                                    <option>Traditionel</option>
+                                     <option>Contemporain</option>
+                                      <option>Country</option>
+                                       <option>Jazz</option>
                                 </select>
                             </div>
 
@@ -189,19 +191,52 @@ get_header();
                                     <option>Ecosse, Edinburgh</option>
                                     <option>Espagne, Madrid</option>
                                     <option>Royaume-Uni, Londres</option>
+                                    <option>Islande, Reykjavík</option>
+                                    <option>Argentine, Salta</option>
+                                    <option>Australie, Melbourne</option>
+                                    <option>Canada, Québec</option>
+                                    <option>Maroc, Marrakech</option>
+                                    <option>Groenland, Nuuk</option>
+                                    <option>USA, Portland</option>
+                                    <option>Japon, Tokyo</option>
+
+
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label>Date</label>
-                                <input type="date" name="date" class="form-control event-input" required>
+                                <input
+                                    type="text"
+                                    id="date"
+                                    name="date"
+                                    class="form-control event-input"
+                                    placeholder="jj/mm/aaaa"
+                                    required
+                                >
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Heure</label>
+                                <select name="heure" class="form-select event-input" required>
+                                    <?php
+                                    for ($h = 1; $h <= 23; $h++) {
+                                        printf(
+                                            '<option value="%02d:00">%02d:00</option>',
+                                            $h,
+                                            $h
+                                        );
+                                    }
+                                    ?>
+                                    <option value="00:00">00:00</option>
+                                </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label>Nombre de personnes</label>
                                 <div class="d-flex align-items-center event-counter">
                                     <button type="button" class="btn counter-btn" data-target="#nbp" data-step="-1">−</button>
-                                    <input id="nbp" type="number" name="nombre_personnes" class="form-control event-input text-center mx-2" value="0" min="0">
+                                    <input id="nbp" type="text" name="nombre_personnes" class="form-control event-input text-center mx-2" value="10" min="10" max="100">
                                     <button type="button" class="btn counter-btn" data-target="#nbp" data-step="1">+</button>
                                 </div>
                             </div>
@@ -210,7 +245,7 @@ get_header();
                                 <label>Prix</label>
                                 <div class="d-flex align-items-center event-counter">
                                     <button type="button" class="btn counter-btn" data-target="#prix" data-step="-1">−</button>
-                                    <input id="prix" type="number" name="prix" class="form-control event-input text-center mx-2" value="0" min="0">
+                                    <input id="prix" type="text" name="prix" class="form-control event-input text-center mx-2" value="0" min="0">
                                     <button type="button" class="btn counter-btn" data-target="#prix" data-step="1">+</button>
                                 </div>
                             </div>
@@ -243,7 +278,7 @@ get_header();
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit...
                         </div>
 
-                        <button type="button" class="btn btn-outline-primary btn-see-more mt-3">voir plus</button>
+                        <button type="button" class="btn btn-outline-primary btn-main-miuzy btn-see-more mt-3">voir plus</button>
 
                         <div class="form-check mt-3">
                             <input type="checkbox" id="accept_terms" required>
@@ -254,7 +289,7 @@ get_header();
 
                 <!-- BOUTON ENVOYER -->
                 <div class="text-center mt-4">
-                    <button type="submit" name="event_submit" class="btn btn-primary btn-submit-event">Envoyer</button>
+                    <button type="submit" name="event_submit" class="btn btn-primary btn-main-miuzy btn-submit-event">Envoyer</button>
                 </div>
 
             </form>
@@ -269,12 +304,27 @@ jQuery(function($) {
 
     // Compteurs +/-
     $('.counter-btn').on('click', function () {
+
         const input = $($(this).data('target'));
-        let val = parseInt(input.val());
-        val += parseInt($(this).data('step'));
-        if (val < 0) val = 0;
+        const step = parseInt($(this).data('step'), 10) || 1;
+
+        let val = parseInt(input.val(), 10) || 0;
+
+        // min priority: min attribute → data-min → 0
+        const min =
+            parseInt(input.attr('min'), 10) ??
+            parseInt(input.data('min'), 10) ??
+            0;
+
+        val += step;
+
+        if (val < min) {
+            val = min;
+        }
+
         input.val(val);
     });
+
 
     // Voir plus règlement
     $('.btn-see-more').on('click', function () {
@@ -284,31 +334,18 @@ jQuery(function($) {
 });
 </script>
 
+<script>
+jQuery(function ($) {
+
+    $("#date").datepicker({
+        dateFormat: "dd/mm/yy",
+        firstDay: 1,        // Monday
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "2024:2035"
+    });
+
+});
+</script>
+
 <?php get_footer(); ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php
-get_footer();
-?>

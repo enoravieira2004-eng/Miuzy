@@ -1,40 +1,64 @@
-    </main>
+<?php if ( ! is_page_template('template-login.php') && ! is_page_template('template-register.php') ) : ?>
+<footer class="miuzy-footer">
+    <div class="container">
+        <div class="row text-center text-md-start align-items-center">
 
-    <footer class="miuzy-footer">
-    <div class="miuzy-footer-container">
+            <!-- COLONNE 1 : LOGO -->
+            <div class="col-md-3">
+                <div class="logo">
+                    <img
+                        src="<?php echo get_template_directory_uri(); ?>/assets/image/logo_miuzy.svg"
+                        alt="Logo Miuzy"
+                        class="logo-img"
+                    >
+                </div>
+            </div>
 
-        <!-- Logo à gauche -->
-        <div class="footer-left">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo_miuzy.svg" alt="Miuzy" class="footer-logo">
-        </div>
+            <div class="col-md-3">
+                <div class="footer-legal">
+                    <p>Conditions générales</p>
+                    <p>Politique de confidentialité</p>
+                </div>
+            </div>
 
-        <!-- Réseaux sociaux au centre -->
-        <div class="footer-center">
-            <p class="footer-title">SUIVEZ NOUS SUR NOS RÉSEAUX SOCIAUX</p>
-            <div class="social-icons">
-                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/tiktok.svg" alt="TikTok"></a>
-                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin.svg" alt="LinkedIn"></a>
-                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/instagram.svg" alt="Instagram"></a>
-                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube.svg" alt="YouTube"></a>
-                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/facebook.svg" alt="Facebook"></a>
+            <!-- COLONNE 2 : RÉSEAUX SOCIAUX -->
+            <div class="col-md-3 text-center">
+                <p>Suivez nos réseaux sociaux</p>
+
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/facebook.svg" alt="Facebook">
+                    </a>
+
+                    <a href="#" aria-label="Instagram">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/instagram.svg" alt="Instagram">
+                    </a>
+
+                    <a href="#" aria-label="YouTube">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/youtube.svg" alt="YouTube">
+                    </a>
+
+                    <a href="#" aria-label="X">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/tiktok.svg" alt="X">
+                    </a>
+                </div>
+            </div>
+
+            <!-- COLONNE 3 : CONTACT -->
+            <div class="col-md-3">
+                <p><strong>Contactez-nous</strong></p>
+                <p>Rue de la poste<br>+32 412 34 56 78</p>
             </div>
         </div>
-
-        <!-- Contact à droite -->
-        <div class="footer-right">
-            <p class="footer-title">CONTACTEZ - NOUS</p>
-            <p class="footer-text">
-                Rue de la poste 19<br>
-                +32 412 34 56 78
-            </p>
-        </div>
-
     </div>
 </footer>
+<?php endif; ?>
 
+</div>
 
-    <?php wp_footer(); ?>
-    </body>
+<?php wp_footer(); ?>
 
-    </html>
-    <?php
+</div> <!-- /site-wrapper -->
+
+</body>
+</html>

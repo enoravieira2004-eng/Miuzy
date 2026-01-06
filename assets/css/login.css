@@ -1,0 +1,185 @@
+/* =====================================================
+   PAGE LOGIN — MIUZY
+===================================================== */
+
+/* =====================================================
+   BASE & BACKGROUND
+===================================================== */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Telegraf', sans-serif;
+
+  /* Dégradé premium Miuzy */
+  background:
+    radial-gradient(
+      circle at bottom center,
+      #3D18D3 0%,
+      rgba(61, 24, 211, 0.6) 25%,
+      rgba(61, 24, 211, 0) 55%
+    ),
+    linear-gradient(
+      90deg,
+      #A73ED0 0%,
+      #A73ED0 45%,
+      #FFB800 100%
+    );
+
+  /* Centrage propre */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 🔥 permet le scroll si écran petit */
+  overflow-y: auto;
+}
+
+/* Filtre blanc au-dessus du dégradé */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* =====================================================
+   WRAPPER
+===================================================== */
+
+.login-page {
+  width: 100%;
+  min-height: 100vh;
+
+  /* 🔥 empêche le formulaire de coller en haut/bas */
+  padding: 80px 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  z-index: 1;
+}
+
+/* =====================================================
+   CARTE LOGIN
+===================================================== */
+
+.login-card {
+  background: #fff;
+  width: 100%;
+  max-width: 420px;
+  padding: 50px 45px;
+  border-radius: 28px;
+  text-align: center;
+
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* =====================================================
+   LOGO & TEXTE
+===================================================== */
+
+.login-card .logo img {
+  max-width: 220px;
+  margin: 0 auto 25px;
+}
+
+.login-card .subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 35px;
+  color: #333;
+}
+
+/* =====================================================
+   ERREURS
+===================================================== */
+
+.login-error {
+  background: #ffe6e6;
+  color: #b30000;
+  padding: 10px 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+/* =====================================================
+   FORMULAIRE
+===================================================== */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-form label {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-form input {
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 2px solid #ddd;
+  font-size: 14px;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #A73ED0;
+}
+
+/* Mot de passe oublié */
+.forgot {
+  text-align: right;
+  font-size: 13px;
+  color: #3D18D3;
+  text-decoration: none;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+/* =====================================================
+   LIEN INSCRIPTION
+===================================================== */
+
+.register-link {
+  margin-top: 25px;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: #3D18D3;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 520px) {
+
+  .login-card {
+    padding: 40px 25px;
+    border-radius: 22px;
+  }
+
+  .login-card .logo img {
+    max-width: 190px;
+  }
+}

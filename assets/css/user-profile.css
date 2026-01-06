@@ -1,0 +1,224 @@
+/* =====================================================
+   PAGE PROFIL — GLOBAL
+===================================================== */
+
+.user-profile-page {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 30px;
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.profile-block {
+    margin-bottom: 80px;
+}
+
+.profile-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.profile-card {
+    background: #fff;
+    padding: 35px;
+    border-radius: 30px;
+}
+
+/* =====================================================
+   HEADER PROFIL
+===================================================== */
+
+.profile-header {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.profile-avatar {
+    position: relative;
+}
+
+.profile-avatar img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.avatar-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: #6c4cff;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* =====================================================
+   INFOS PROFIL
+===================================================== */
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-info strong {
+    font-size: 18px;
+}
+
+.profile-actions {
+    margin-top: 10px;
+}
+
+/* =====================================================
+   FORMULAIRES
+===================================================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+input,
+select,
+textarea {
+    border: 2px solid #ddd;
+    border-radius: 999px;
+    padding: 14px 18px;
+    font-size: 14px;
+}
+
+textarea {
+    border-radius: 20px;
+}
+
+.profile-edit input {
+    margin-bottom: 10px;
+    max-width: 320px;
+}
+
+/* =====================================================
+   GRILLES
+===================================================== */
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: end;
+}
+
+.align-end {
+    display: flex;
+    align-items: flex-end;
+}
+
+/* =====================================================
+   BOUTONS
+===================================================== */
+
+.btn-outline.full {
+    width: 100%;
+    height: 56px;
+}
+
+.btn-outline.warning {
+    border-color: #ffb800;
+    color: #ffb800;
+}
+
+/* =====================================================
+   UTILITAIRES
+===================================================== */
+
+.hidden {
+    display: none;
+}
+
+/* =====================================================
+   SERVICE CLIENT
+===================================================== */
+
+.profile-block textarea {
+    width: 100%;
+    min-height: 220px;
+    resize: vertical;
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* =====================================================
+   AJOUT D’UN ÉVÈNEMENT (FIX)
+===================================================== */
+
+/* Le titre reste au-dessus, le contenu est empilé */
+.event-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 500px;
+}
+
+.event-content p {
+    margin: 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* =====================================================
+   POPUP MESSAGE
+===================================================== */
+
+.miuzy-popup {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 14px 22px;
+    border-radius: 16px;
+    font-weight: 600;
+    color: #fff;
+    background: #3D18D3;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+.miuzy-popup.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.miuzy-popup.success {
+    background: #3D18D3;
+}
+
+.miuzy-popup.error {
+    background: #ff4c4c;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+}

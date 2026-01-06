@@ -1,35 +1,346 @@
+/* ======================================================
+   RESET / BASE
+====================================================== */
 
-@font-face {
-    font-family: "PP Telegraf";
-    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-Regular.otf") format("opentype");
-    font-weight: 400;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-@font-face {
-    font-family: "PP Telegraf";
-    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-UltraBold.otf") format("opentype");
-    font-weight: 800;
-}
-
-@font-face {
-    font-family: "PP Telegraf";
-    src: url("/wp-content/themes/Miuzy/assets/font/PPTelegraf-UltraLight.otf") format("opentype");
-    font-weight: 200;
-}
+html,
 body {
-    font-family: "PP Telegraf", sans-serif;
-}
-.title {
-    font-family: "PP Telegraf";
-    font-weight: 800; /* UltraBold */
+    margin: 0;
+    padding: 0;
 }
 
-.text {
-    font-family: "PP Telegraf";
-    font-weight: 400; /* Regular */
+body {
+    font-family: 'Telegraf', sans-serif;
+    background: #fff;
+    overflow-x: hidden;
 }
 
-.light {
-    font-family: "PP Telegraf";
-    font-weight: 200; /* UltraLight */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ======================================================
+   POLICES – TELEGRAF
+====================================================== */
+
+@font-face {
+    font-family: 'Telegraf';
+    src: url('../font/PPTelegraph-UltraLight.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Telegraf';
+    src: url('../font/PPTelegraph-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Telegraf';
+    src: url('../font/PPTelegraph-UltraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ======================================================
+   VARIABLES
+====================================================== */
+
+:root {
+    --miuzy-violet: #A73ED0;
+    --miuzy-yellow: #FFB800;
+    --miuzy-black: #000;
+    --miuzy-light: #f7f7f7;
+}
+
+/* ======================================================
+   HEADER
+====================================================== */
+
+.miuzy-header {
+    background-color: var(--miuzy-violet);
+    padding: 15px 0;
+}
+
+.miuzy-header a {
+    color: var(--miuzy-black);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+.miuzy-header a:hover {
+    color: var(--miuzy-yellow);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 42px;
+}
+
+.miuzy-header .btn {
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: var(--miuzy-black);
+    padding: 0;
+}
+
+/* ======================================================
+   MENU MOBILE
+====================================================== */
+
+#menuMobile {
+    background: var(--miuzy-violet);
+    padding: 30px 0;
+}
+
+.mobile-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.mobile-logo img {
+    height: 40px;
+}
+
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-nav a {
+    width: 100%;
+    text-align: center;
+    padding: 14px 0;
+    font-size: 18px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.mobile-nav a:last-child {
+    border-bottom: none;
+}
+
+/* ======================================================
+   FOOTER
+====================================================== */
+
+.miuzy-footer {
+    background-color: var(--miuzy-violet);
+    padding: 60px 0;
+}
+
+.miuzy-footer p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--miuzy-black);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 12px;
+}
+
+.social-icons img {
+    width: 22px;
+    transition: transform 0.25s ease;
+}
+
+.social-icons img:hover {
+    transform: scale(1.15);
+}
+
+/* ======================================================
+   PAGE ACCUEIL
+====================================================== */
+
+.miuzy-home {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+/* Titre principal */
+.miuzy-title {
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 80px; /* 🔥 espace avec NOTRE PLATEFORME */
+}
+
+.miuzy-title span {
+    color: var(--miuzy-violet);
+}
+
+/* Sections */
+.miuzy-section {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    margin-bottom: 100px;
+}
+
+/* Titres colonne gauche */
+.miuzy-left-title {
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+/* Texte */
+.miuzy-paragraph {
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 700px;
+}
+
+/* ======================================================
+   CRÉATRICES
+====================================================== */
+
+.miuzy-creator {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 80px;
+}
+
+.miuzy-creator-img {
+    width: 240px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 28px;
+    flex-shrink: 0;
+}
+
+.miuzy-creator-text h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.miuzy-creator-text p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* ======================================================
+   PAGE NO ACCESS
+====================================================== */
+
+.noaccess-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.noaccess-content {
+    text-align: center;
+    max-width: 600px;
+}
+
+.noaccess-title {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 40px;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width: 768px) {
+
+    .logo-img {
+        height: 32px;
+    }
+
+    .miuzy-title {
+        font-size: 30px;
+        margin-bottom: 50px;
+    }
+
+    .miuzy-section {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .miuzy-left-title {
+        font-size: 22px;
+    }
+
+    .miuzy-creator {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .miuzy-creator-img {
+        width: 220px;
+        max-width: 90%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .miuzy-creator-text {
+        max-width: 500px;
+    }
+
+    .noaccess-title {
+        font-size: 22px;
+    }
+}
+/* ======================================================
+   PAGE NO ACCESS
+====================================================== */
+
+.noacces-container {
+    min-height: calc(100vh - 200px); /* 🔥 évite le footer collé */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+}
+
+.noacces-content {
+    text-align: center;
+    max-width: 600px;
+}
+
+.noacces-title {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 40px;
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .noacces-title {
+        font-size: 22px;
+    }
 }

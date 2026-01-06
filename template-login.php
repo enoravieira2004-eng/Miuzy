@@ -1,52 +1,85 @@
 <?php
+/*
+Template Name: Login
+*/
+get_header('login');
 
-/**
- * Template Name: Login Template
- */
-get_header();
+// Gestion du formulaire
+$error = '';
+
+if ( isset($_POST['login_submit']) ) {
+
+    if ( ! isset($_POST['login_nonce']) || ! wp_verify_nonce($_POST['login_nonce'], 'login_action') ) {
+        $error = 'Erreur de sécurité.';
+    } else {
+
+        $creds = array(
+            'user_login'    => sanitize_text_field($_POST['email']),
+            'user_password' => $_POST['password'],
+            'remember'      => true
+        );
+
+        $user = wp_signon($creds, false);
+
+        if ( is_wp_error($user) ) {
+            $error = 'Email ou mot de passe incorrect.';
+        } else {
+
+            // 🔐 IMPORTANT
+            wp_set_current_user($user->ID);
+            wp_set_auth_cookie($user->ID, true);
+
+            wp_safe_redirect( home_url('/') );
+            exit;
+        }
+    }
+}
 ?>
 
-<div class="login-container">
-    <div class="login-box">
-        <h1 class="logo">MIUZY</h1>
-        <p class="tagline">Bienvenu sur la plateforme de miuzy, la où les<br>événements locaux prennent vie !</p>
+<div class="login-page">
+    <div class="login-card">
 
-        <?php
-        if (isset($_GET['login']) && $_GET['login'] == 'failed') {
-            echo '<div class="error-message">Invalid username or password.</div>';
-        }
-        if (isset($_GET['login']) && $_GET['login'] == 'empty') {
-            echo '<div class="error-message">Please fill in all fields.</div>';
-        }
-        if (is_user_logged_in()) {
-            echo '<div class="success-message">You are already logged in. <a href="' . wp_logout_url(home_url()) . '">Logout</a></div>';
-        } else {
-        ?>
+        <div class="logo">
+            <img 
+                src="<?php echo get_template_directory_uri(); ?>/assets/image/logo_miuzy.svg"
+                alt="Miuzy"
+            >
+        </div>
 
-            <form id="loginForm" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" class="login-form">
-                <?php wp_nonce_field('login_action', 'login_nonce'); ?>
+        <p class="subtitle">
+            Bienvenu sur la plateforme de Miuzy, là où les événements locaux prennent vie !
+        </p>
 
-                    <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required>
-                    <a href="forgot-password.php" class="forgot-link">Mot de passe oublié ?</a>
-                </div>
-                
-                <button type="submit" name="login_submit" class="btn-submit">Se connecter</button>
-            </form>
+        <?php if ($error): ?>
+            <div class="login-error"><?php echo esc_html($error); ?></div>
+        <?php endif; ?>
 
-            <p class="signup-text">
-                Vous n'avez pas de compte ? <a href="register.php">Inscrivez-vous.</a>
-            </p>
-        <?php } ?>
+        <form method="post" class="login-form">
+
+            <?php wp_nonce_field('login_action', 'login_nonce'); ?>
+
+            <label for="email">E-mail</label>
+            <input type="text" name="email" id="email" required>
+
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" required>
+
+            <a href="<?php echo wp_lostpassword_url(); ?>" class="forgot">
+                Mot de passe oublié ?
+            </a>
+
+            <button type="submit" name="login_submit" class="btn-login btn-main-miuzy">
+                Se connecter
+            </button>
+
+        </form>
+
+        <p class="register-link">
+            Vous n’avez pas de compte ?
+            <a href="<?php echo site_url('/register'); ?>">Inscrivez-vous</a>
+        </p>
+
     </div>
 </div>
 
-<?php
-get_footer();
-?>
+<?php get_footer('login'); ?>

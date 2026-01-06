@@ -3,36 +3,16 @@
 get_header();
 ?>
 
-<div class="panier-wrapper">
+<div class="container-wrapper">
 
-    <h1>Panier</h1>
+    <h2>Panier</h2>
+    <br/>
+    <div id="panier-content"></div>
+    <div class="panier-vide" id="panier-vide">
+        <p>Ohoh, il me semble que c’est <strong>vide</strong> par ici.</p>
+    </div>
 
-    <div id="panier-content">
-
-        <div class="ticket-card" id="ticket-item">
-
-            <img 
-                class="ticket-image"
-                src="<?php echo get_template_directory_uri(); ?>/assets/images/The shamrock howlers.jpg" 
-                alt="The Shamrock Howlers">
-
-            <div class="ticket-info">
-                <h3>The Shamrock Howlers</h3>
-                <p>Né dans un port battu par les vents écossais, ce trio rock mêle riffs fougueux et énergie rugueuse...</p>
-
-                <p><strong>Adresse :</strong> Edinburgh, Écosse</p>
-                <p><strong>Prix :</strong> <span id="ticket-price">13</span> £</p>
-
-                <button class="btn-plus">Voir plus</button>
-            </div>
-
-            <button class="delete-btn" id="delete-ticket">
-                <img 
-                    src="<?php echo get_template_directory_uri(); ?>/assets/images/disposition.svg" 
-                    alt="Supprimer">
-            </button>
-
-        </div>
+    <div id="panier-actions" style="display:none">
 
         <!-- Quantité -->
         <div class="quantity-box">
@@ -43,7 +23,7 @@ get_header();
 
         <!-- Total -->
         <p class="total-price">
-            Total : <span id="total-value">0</span> £
+            Total : <span id="total-value">0</span> €
         </p>
 
         <!-- Paiement -->
@@ -57,15 +37,10 @@ get_header();
 
     </div>
 
-    <!-- PANIER VIDE -->
-    <div class="panier-vide" id="panier-vide">
-        <p>Ohoh, il me semble que c’est <strong>vide</strong> par ici.</p>
-    </div>
-
 </div>
 
 <!-- POPUP SUPPRESSION -->
-<div class="popup-overlay" id="popup">
+<div class="popup-overlay" id="delete-popup">
     <div class="popup">
         <p>Êtes-vous sûr de vouloir supprimer cet article du panier ?</p>
         <div class="popup-actions">
@@ -98,9 +73,6 @@ get_header();
 
 <style>
 /* (CSS identique au tien, inchangé) */
-.panier-wrapper{width:90%;max-width:1200px;margin:60px auto;}
-.ticket-card{background:#fff;border:1px solid #e6e0ff;padding:20px;border-radius:15px;display:flex;align-items:center;gap:20px;box-shadow:0 2px 6px rgba(0,0,0,.08);margin-bottom:40px;}
-.ticket-image{width:120px;height:120px;border-radius:12px;object-fit:cover;}
 .btn-plus,.payment-btn{border:2px solid #3D18D3;background:none;color:#3D18D3;padding:10px 22px;border-radius:30px;cursor:pointer;transition:.2s;}
 .btn-plus:hover,.payment-btn:hover{background:#3D18D3;color:#fff;}
 .delete-btn{margin-left:auto;background:none;border:none;cursor:pointer;padding:0;}
@@ -110,7 +82,7 @@ get_header();
 .quantity-box button{background:none;border:none;font-size:22px;color:#3D18D3;cursor:pointer;}
 .total-price{font-size:20px;font-weight:bold;color:#3D18D3;}
 .payment-container{display:flex;gap:20px;flex-wrap:wrap;}
-.panier-vide{display:none;text-align:center;font-size:22px;margin:120px 0;}
+.panier-vide{text-align:center;font-size:22px;margin:120px 0;}
 .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);justify-content:center;align-items:center;z-index:999;}
 .popup{background:#fff;padding:30px;border-radius:15px;text-align:center;max-width:400px;}
 .popup-actions{margin-top:25px;display:flex;justify-content:space-between;}
@@ -119,36 +91,100 @@ get_header();
 </style>
 
 <script>
-let count = 0;
-const price = 13;
+
 let selectedPayment = "";
+let itemToDelete = null;
 
 const countDisplay = document.getElementById("ticket-count");
 const totalDisplay = document.getElementById("total-value");
 
-const popup = document.getElementById("popup");
+const popup = document.getElementById("delete-popup");
 const paymentPopup = document.getElementById("payment-popup");
 const thanksPopup = document.getElementById("thanks-popup");
 
 const panierContent = document.getElementById("panier-content");
 const panierVide = document.getElementById("panier-vide");
 
-document.getElementById("btn-plus").onclick = () => { if(count < 5){ count++; update(); }};
-document.getElementById("btn-minus").onclick = () => { if(count > 0){ count--; update(); }};
+let quantity = 1;
 
-function update(){
-    countDisplay.textContent = count;
-    totalDisplay.textContent = count * price;
+document.getElementById("btn-plus").onclick = () => {
+    const max_quantity = getMaxQuantity();
+    if (quantity < max_quantity) {
+        quantity++;
+        calculateTotal();
+    }
+};
+
+document.getElementById("btn-minus").onclick = () => {
+    if (quantity > 1) {
+        quantity--;
+        calculateTotal();
+    }
+};
+
+function calculateTotal() {
+    let baseTotal = 0;
+    let itemCount = 0;
+
+    document.querySelectorAll('.ticket-card').forEach(card => {
+        const price = parseFloat(card.dataset.price || 0);
+        baseTotal += price;
+        itemCount++;
+    });
+
+    document.getElementById("ticket-count").textContent = quantity;
+    document.getElementById("total-value").textContent = (baseTotal * quantity).toFixed(2);
+}
+
+function getMaxQuantity() {
+    const card = document.querySelector('.ticket-card');
+    if (!card) return 1;
+
+    const max = parseInt(card.dataset.max, 10);
+    return isNaN(max) || max < 1 ? 1 : max;
 }
 
 // SUPPRESSION
-document.getElementById("delete-ticket").onclick = () => popup.style.display = "flex";
+
 document.getElementById("cancel-delete").onclick = () => popup.style.display = "none";
 document.getElementById("confirm-delete").onclick = () => {
+    if (!itemToDelete) return;
+
+    let panier = JSON.parse(localStorage.getItem('panier') || '{}');
+    delete panier[itemToDelete];
+    localStorage.setItem('panier', JSON.stringify(panier));
+
     popup.style.display = "none";
-    panierContent.style.display = "none";
-    panierVide.style.display = "block";
+    itemToDelete = null;
+
+    refreshPanier();
 };
+
+function refreshPanier() {
+
+    const panier = JSON.parse(localStorage.getItem('panier') || '{}');
+
+    if (Object.keys(panier).length === 0) {
+        panierContent.innerHTML = "";
+        panierVide.style.display = "block";
+        document.getElementById("panier-actions").style.display = "none";
+        totalDisplay.textContent = "0";
+        countDisplay.textContent = "0";
+        return;
+    }
+
+    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=get_panier_events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(panier)
+    })
+    .then(res => res.text())
+    .then(html => {
+        panierContent.innerHTML = html;
+        calculateTotal();
+    });
+}
+
 
 // PAIEMENT FAKE
 function openPaymentPopup(method){
@@ -161,18 +197,80 @@ function closePaymentPopup(){
     paymentPopup.style.display = "none";
 }
 
-function confirmPayment(){
-    paymentPopup.style.display = "none";
-    thanksPopup.style.display = "flex";
+function confirmPayment(){    
+    const panier = JSON.parse(localStorage.getItem('panier') || '{}');
+
+    if (Object.keys(panier).length === 0) {
+        alert('Panier vide');
+        return;
+    }
+
+    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=save_reservations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(panier)
+    })
+    .then(res => res.json())
+    .then(response => {
+
+        if (!response.success) {
+            alert('Erreur lors de la réservation');
+            return;
+        }
+
+        // Clear basket
+        localStorage.removeItem('panier');
+
+        // Display thanks popup
+        closePaymentPopup();
+        thanksPopup.style.display = "flex";
+    });
 }
 
 function closeThanksPopup(){
-    thanksPopup.style.display = "none";
-    panierContent.style.display = "none";
-    panierVide.style.display = "block";
-    count = 0;
-    update();
+    // Redirect to reservations
+    window.location.href = "<?php echo site_url('/reservation'); ?>";
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const panier = JSON.parse(localStorage.getItem('panier') || '{}');
+    const container = document.getElementById('panier-content');
+    const empty = document.getElementById('panier-vide');
+    const actions = document.getElementById('panier-actions');
+
+    if (Object.keys(panier).length === 0) {
+        empty.style.display = 'block';
+        actions.style.display = 'none';
+        return;
+    } else{
+        empty.style.display = 'none';
+        actions.style.display = '';
+    }
+
+    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=get_panier_events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(panier)
+    })
+    .then(res => res.text())
+    .then(html => {
+        container.innerHTML = html;
+        calculateTotal();
+
+    });
+});
+
+document.addEventListener('click', function (e) {
+
+    const deleteBtn = e.target.closest('.delete-btn');
+    if (!deleteBtn) return;
+
+    itemToDelete = deleteBtn.dataset.remove;
+    popup.style.display = "flex";
+});
+
+
 </script>
 
 <?php get_footer(); ?>
