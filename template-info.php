@@ -24,7 +24,7 @@ get_header();
         exit;
     }
 
-    // Get meta
+    // Get meta (récuperer les champs dans la base de données)
     $artist      = get_post_meta($event_id, 'artist_name', true);
     $style       = get_post_meta($event_id, 'style', true);
     $adresse     = get_post_meta($event_id, 'adresse', true);
@@ -113,15 +113,15 @@ get_footer();
         });
     });
 
-    document.getElementById('signalerBtn').addEventListener('click', function (e) {
+    document.getElementById('signalerBtn').addEventListener('click', function (e) { //signalement
         e.preventDefault();
         alert('Merci de votre signalement.');
     });
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function(e) { //bouton panier
         if (!e.target.classList.contains('panier-btn')) return;
 
-        if (!"<?php echo is_user_logged_in()?>") {
+        if (!"<?php echo is_user_logged_in()?>") { //pas loger
             window.location.href = "<?php echo site_url('/noacces'); ?>";
             return;
         }
@@ -134,6 +134,6 @@ get_footer();
 
         localStorage.setItem('panier', JSON.stringify(panier));
 
-        window.location.href = "<?php echo site_url('/panier'); ?>";
+        window.location.href = "<?php echo site_url('/panier'); ?>"; //redirection page panier
     });
 </script>

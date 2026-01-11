@@ -8,8 +8,8 @@
    ASSETS (CSS / JS)
 ===================================================== */
 
-add_action('init', function () {
-
+add_action('init', function () { 
+ 
     register_post_type('reservation', [
         'labels' => [
             'name' => 'Reservations',
@@ -40,7 +40,7 @@ function miuzy_enqueue_assets() {
     /* ---------- Bootstrap ---------- */
     wp_enqueue_style(
         'bootstrap-css',
-        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' 
     );
 
     wp_enqueue_script(
@@ -51,7 +51,7 @@ function miuzy_enqueue_assets() {
         true
     );
 
-    /* ---------- Font Awesome ---------- */
+    /* ---------- Font Awesome ---------- heart */ 
     wp_enqueue_style(
         'font-awesome',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
@@ -348,11 +348,11 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 
-
+// partie INSAF
 add_action('wp_ajax_search_events', 'handle_search_events');
 add_action('wp_ajax_nopriv_search_events', 'handle_search_events');
 
-function handle_search_events() {
+function handle_search_events() { 
 
     // Sanitize inputs
     $location = isset($_GET['location']) ? sanitize_text_field($_GET['location']) : '';
@@ -448,7 +448,7 @@ function handle_search_events() {
 }
 
 
-add_action('wp_ajax_get_panier_events', 'get_panier_events');
+add_action('wp_ajax_get_panier_events', 'get_panier_events'); // récupère le panier de l'utilisateur ex 5
 add_action('wp_ajax_nopriv_get_panier_events', 'get_panier_events');
 
 function get_panier_events() {
@@ -502,7 +502,7 @@ function get_panier_events() {
 }
 
 
-add_action('wp_ajax_save_reservations', 'save_reservations');
+add_action('wp_ajax_save_reservations', 'save_reservations'); //sauvegarde ce qu'il y a dans le panier 
 add_action('wp_ajax_nopriv_save_reservations', 'save_reservations');
 
 function save_reservations() {
@@ -516,7 +516,7 @@ function save_reservations() {
 
     $created = [];
 
-    foreach ($panier as $event_id => $item) {
+    foreach ($panier as $event_id => $item) { // boucle (création de la reservation dans la bdd)
 
         $event = get_post($event_id);
         if (!$event || $event->post_type !== 'event') continue;
@@ -548,12 +548,12 @@ function save_reservations() {
 }
 
 
-add_action('wp_ajax_get_reservations_db', 'get_reservations_db');
+add_action('wp_ajax_get_reservations_db', 'get_reservations_db'); // récuperer les réservations qui existe 
 add_action('wp_ajax_nopriv_get_reservations_db', 'get_reservations_db');
 
 function get_reservations_db() {
 
-    $args = [
+    $args = [ //ajout d'un paramètre user id
         'post_type'      => 'reservation',
         'posts_per_page' => -1,
         'post_status'    => 'publish',
@@ -602,7 +602,7 @@ function get_reservations_db() {
     wp_die();
 }
 
-// Favorites
+// Favorites loger/pas loger  ensuite favoris rajouter/enlever
 add_action('wp_ajax_toggle_favorite', 'toggle_favorite');
 add_action('wp_ajax_nopriv_toggle_favorite', 'toggle_favorite');
 
@@ -619,7 +619,7 @@ function toggle_favorite() {
         wp_send_json_error();
     }
 
-    $favorites = get_user_meta($user_id, 'favorite_events', true);
+    $favorites = get_user_meta($user_id, 'favorite_events', true); // récupérer les favoris //
     if (!is_array($favorites)) {
         $favorites = [];
     }

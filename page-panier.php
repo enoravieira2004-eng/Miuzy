@@ -75,9 +75,6 @@ get_header();
 /* (CSS identique au tien, inchangé) */
 .btn-plus,.payment-btn{border:2px solid #3D18D3;background:none;color:#3D18D3;padding:10px 22px;border-radius:30px;cursor:pointer;transition:.2s;}
 .btn-plus:hover,.payment-btn:hover{background:#3D18D3;color:#fff;}
-.delete-btn{margin-left:auto;background:none;border:none;cursor:pointer;padding:0;}
-.delete-btn img{width:28px;opacity:.7;transition:.2s;}
-.delete-btn img:hover{opacity:1;transform:scale(1.1);}
 .quantity-box{display:flex;align-items:center;gap:15px;border:2px solid #3D18D3;border-radius:30px;padding:8px 25px;width:fit-content;margin:30px 0;}
 .quantity-box button{background:none;border:none;font-size:22px;color:#3D18D3;cursor:pointer;}
 .total-price{font-size:20px;font-weight:bold;color:#3D18D3;}
@@ -107,7 +104,7 @@ const panierVide = document.getElementById("panier-vide");
 
 let quantity = 1;
 
-document.getElementById("btn-plus").onclick = () => {
+document.getElementById("btn-plus").onclick = () => { // bouton +
     const max_quantity = getMaxQuantity();
     if (quantity < max_quantity) {
         quantity++;
@@ -115,14 +112,14 @@ document.getElementById("btn-plus").onclick = () => {
     }
 };
 
-document.getElementById("btn-minus").onclick = () => {
+document.getElementById("btn-minus").onclick = () => { // bouton - 
     if (quantity > 1) {
         quantity--;
         calculateTotal();
     }
 };
 
-function calculateTotal() {
+function calculateTotal() { 
     let baseTotal = 0;
     let itemCount = 0;
 
@@ -136,7 +133,7 @@ function calculateTotal() {
     document.getElementById("total-value").textContent = (baseTotal * quantity).toFixed(2);
 }
 
-function getMaxQuantity() {
+function getMaxQuantity() { // nombre de personne (sold out)
     const card = document.querySelector('.ticket-card');
     if (!card) return 1;
 
@@ -146,21 +143,21 @@ function getMaxQuantity() {
 
 // SUPPRESSION
 
-document.getElementById("cancel-delete").onclick = () => popup.style.display = "none";
+document.getElementById("cancel-delete").onclick = () => popup.style.display = "none"; // bouton poubelle
 document.getElementById("confirm-delete").onclick = () => {
     if (!itemToDelete) return;
 
-    let panier = JSON.parse(localStorage.getItem('panier') || '{}');
+    let panier = JSON.parse(localStorage.getItem('panier') || '{}'); 
     delete panier[itemToDelete];
     localStorage.setItem('panier', JSON.stringify(panier));
 
     popup.style.display = "none";
     itemToDelete = null;
 
-    refreshPanier();
+    refreshPanier(); 
 };
 
-function refreshPanier() {
+function refreshPanier() { // recharge la page pour afficher ce qu'il faut
 
     const panier = JSON.parse(localStorage.getItem('panier') || '{}');
 
@@ -205,7 +202,7 @@ function confirmPayment(){
         return;
     }
 
-    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=save_reservations', {
+    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=save_reservations', { //garder en tant que reservation après achat
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(panier)
@@ -248,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         actions.style.display = '';
     }
 
-    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=get_panier_events', {
+    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=get_panier_events', { //récupération des éléments du panier
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(panier)
@@ -260,16 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 });
-
-document.addEventListener('click', function (e) {
-
-    const deleteBtn = e.target.closest('.delete-btn');
-    if (!deleteBtn) return;
-
-    itemToDelete = deleteBtn.dataset.remove;
-    popup.style.display = "flex";
-});
-
 
 </script>
 

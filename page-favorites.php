@@ -13,7 +13,7 @@ $favorites = get_user_meta($user_id, 'favorite_events', true);
 $has_favorites = is_array($favorites) && !empty($favorites);
 
 
-$query = new WP_Query([
+$query = new WP_Query([  /*rechercher tout les favoris qui sont déjà présent dans la base de données */
     'post_type'      => 'event',
     'post__in'       => $favorites,
     'posts_per_page' => -1,
@@ -25,12 +25,12 @@ $query = new WP_Query([
     <h2>Mes favoris</h2>
     <br/>
 
-    <div class="favorites-vide" id="favorites-vide" style="display:none">
+    <div class="favorites-vide" id="favorites-vide" style="display:none"> 
         <p>Ohoh, il me semble que c’est <strong>vide</strong> par ici.</p>
     </div>
 
     <div id="results-container">
-        <?php while ($query->have_posts()) : $query->the_post();
+        <?php while ($query->have_posts()) : $query->the_post(); /* récupère tout les fav */
 
             $event_id = get_the_ID();
             $artist = get_post_meta($event_id, 'artist_name', true);
@@ -41,9 +41,9 @@ $query = new WP_Query([
             $image  = get_post_meta($event_id, 'artist_image_url', true);
         ?>
         
-        <div class="ticket-card">
+        <div class="ticket-card">  
             <img class="ticket-image"
-                 src="<?php echo esc_url($image ?: get_template_directory_uri() . '/assets/image/default-event.jpg'); ?>">
+                 src="<?php echo esc_url($image ?: get_template_directory_uri() . '/assets/image/default-event.jpg'); ?>"> 
 
             <div class="ticket-info">
                 <h3><?php echo esc_html($artist); ?></h3>
@@ -56,10 +56,10 @@ $query = new WP_Query([
                 <div class="fav-btn active" 
                      data-event-id="<?php echo $event_id; ?>"
                      title="Retirer des favoris">
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i> <!-- bouton coeur -->
                 </div>
 
-                <a href="<?php echo site_url('/info?event_id=' . $event_id); ?>"
+                <a href="<?php echo site_url('/info?event_id=' . $event_id); ?>" 
                    class="more-btn btn-main-miuzy">
                     Voir plus
                 </a>
@@ -67,7 +67,7 @@ $query = new WP_Query([
 
         </div>
 
-        <?php endwhile; wp_reset_postdata(); ?>
+        <?php endwhile; wp_reset_postdata(); ?> 
     </div>
 </div>
 
@@ -75,65 +75,20 @@ $query = new WP_Query([
 
 
 <style>
-    
-.favorites-vide{text-align:center;font-size:22px;margin:120px 0;}
-.search-container {
-    width: 80%;
-    margin: 40px auto;
-    text-align: center;
+.favorites-vide{
+text-align:center;font-size:22px;margin:120px 0;
 }
-
-.filters {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.filters select,
-.filters input[type="date"] {
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    width: 180px;
-}
-
-.search-btn {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.search-btn img {
-    width: 28px;     /* ajuste selon ton SVG */
-    height: 28px;
-}
-
-.filters select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    padding: 12px 45px 12px 20px;
-    background-image: url("<?php echo get_template_directory_uri(); ?>/assets/image/fleche-bas.svg");
-    background-position: right 15px center;
-    background-repeat: no-repeat;
-    background-size: 14px;
-}
-
 </style>
 
 <script>
-document.addEventListener("click", function (e) {
+document.addEventListener("click", function (e) { /* détecter le click sur le  bouton fav-btn */
 
     const btn = e.target.closest(".fav-btn");
     if (!btn) return;
 
     const eventId = btn.dataset.eventId;
 
-    fetch("<?php echo admin_url('admin-ajax.php'); ?>?action=toggle_favorite", {
+    fetch("<?php echo admin_url('admin-ajax.php'); ?>?action=toggle_favorite", { /* appel la méthode dans functions  */
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -155,7 +110,7 @@ document.addEventListener("click", function (e) {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { /* quand la page est charge le code est appelé */
     const hasCards = document.querySelectorAll(".ticket-card").length > 0;
     document.getElementById("favorites-vide").style.display = hasCards ? "none" : "block";
 });

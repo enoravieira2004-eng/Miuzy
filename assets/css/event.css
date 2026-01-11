@@ -251,7 +251,7 @@ textarea.event-input {
 /* RESPONSIVE */
 /* -------------------------- */
 
-@media (max-width: 768px) {
+@media (max-width: 768px) { 
 
     .event-hero {
         height: 260px;

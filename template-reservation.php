@@ -9,7 +9,7 @@ get_header();
 
     <!-- FILTRE -->
     <div class="filter-box">
-        <label for="sortTickets">Trier mes tickets</label>
+        <label for="sortTickets">Trier mes tickets</label> 
         <select id="sortTickets" class="miuzy-select">
             <option value="recent">Récentes</option>
             <option value="old">Anciennes</option>
@@ -77,7 +77,7 @@ get_header();
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=get_reservations_db')
+    fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=get_reservations_db') //récupérer les reservations depuis la base de données et les afficher ici
         .then(res => res.text())
         .then(html => {
             if (html.trim() === '') {
@@ -91,7 +91,7 @@ get_header();
 
 <script>
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { //trier
     const select = document.getElementById("sortTickets");
     const ticketsContainer = document.getElementById("ticketsList");
 

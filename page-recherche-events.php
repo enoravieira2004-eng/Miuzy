@@ -8,7 +8,7 @@ get_header();
 <section class="event-hero" style="background-image:url('<?php echo get_stylesheet_directory_uri(); ?>/assets/image/pexels-thibault-trillet-44912-167636.jpg">
     <div class="event-hero-overlay"></div>
     <div class="event-hero-content container">
-        <h1>Réserve les meilleurs événements musicaux près de toi !</h1>
+        <h1>Réserve les meilleurs événements musicaux près de toi !</h1> <!--image au dessus de la recherche-->
     </div>
 </section>
 
@@ -212,10 +212,10 @@ document.getElementById("filter-btn").addEventListener("click", function () {
     const date     = document.getElementById("filter-date").value;
     const style    = document.getElementById("filter-style").value;
 
-    fetch(`${ajaxurl.url}?action=search_events&location=${location}&date=${date}&style=${style}`)
+    fetch(`${ajaxurl.url}?action=search_events&location=${location}&date=${date}&style=${style}`) //retrouver les éléments dans la base de données
         .then(res => res.text())
         .then(html => {
-            document.getElementById("results-container").innerHTML = html;
+            document.getElementById("results-container").innerHTML = html; //résultat
         });
 });
 
@@ -240,7 +240,7 @@ document.addEventListener("click", function(e) {
     fetch("<?php echo admin_url('admin-ajax.php'); ?>?action=toggle_favorite", {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded" 
         },
         body: `event_id=${eventId}`
     })
@@ -264,7 +264,8 @@ document.addEventListener("click", function(e) {
 });
 </script>
 <script>
-jQuery(function ($) {
+
+jQuery(function ($) { // réinistialiser le format en version FR
 
     $("#filter-date").datepicker({
         dateFormat: "dd/mm/yy",

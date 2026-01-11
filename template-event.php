@@ -12,7 +12,7 @@ get_header();
         </div>
     </section>
 
-    <div class="container event-main py-5">
+    <div class="container event-main py-5"> 
 
         <?php
         // SI LE FORMULAIRE EST ENVOYÉ → AFFICHAGE DU TICKET
@@ -41,7 +41,7 @@ get_header();
                 $date = $dateObj->format('Y-m-d'); // ISO
             }
 
-            if (!empty($_FILES['artist_image']['name'])) {
+            if (!empty($_FILES['artist_image']['name'])) { //test pour verifier l'image
 
                 require_once(ABSPATH . 'wp-admin/includes/file.php');
                 $uploaded = wp_handle_upload($_FILES['artist_image'], array('test_form' => false));
@@ -50,7 +50,7 @@ get_header();
                     $uploaded_image_url = $uploaded['url']; // URL de la vraie image uploadée
                 }
             }
-            $event_id = wp_insert_post(array(
+            $event_id = wp_insert_post(array( //sauvegarder dans la base de données
                 'post_type'   => 'event',
                 'post_title'  => $prenom . ' ' . $nom . ' – ' . $artiste,
                 'post_content'=> $description,
@@ -108,7 +108,7 @@ get_header();
                 </div>
             </section>
 
-        <?php else : ?>
+        <?php else : ?> <!--formulaire vide -->
 
             <!-- FORMULAIRE DE CRÉATION -->
             <form id="eventForm" class="event-form" method="post" enctype="multipart/form-data">
@@ -312,7 +312,7 @@ jQuery(function($) {
 
         // min priority: min attribute → data-min → 0
         const min =
-            parseInt(input.attr('min'), 10) ??
+            parseInt(input.attr('min'), 10) ?? //
             parseInt(input.data('min'), 10) ??
             0;
 
